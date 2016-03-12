@@ -69,7 +69,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_References.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_ToggleCursor.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_ToggleInventoryUI.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_ToggleMenu.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_TogglePause.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_TogglePlayer.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\GeneralScripts\MainMenu.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\Master Scripts\GameManager_Master.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -24,7 +24,7 @@ namespace S3
             }
         }
 
-        public void CallInventoryUIToggle()
+        public void CallEventInventoryUIToggle()
         {
             if(InventoryUIToggleEvent != null)
             {
@@ -40,7 +40,7 @@ namespace S3
             }
         }
 
-        public void CallEventMenuScene()
+        public void CallEventGoToMenuScene()
         {
             if (GoToMenuSceneEvent != null)
             {
