@@ -8,7 +8,7 @@ namespace S3
         public delegate void GameManagerEventHandler();
         public event GameManagerEventHandler MenuToggleEvent;
         public event GameManagerEventHandler InventoryUIToggleEvent;
-        public event GameManagerEventHandler RestartToggleEvent;
+        public event GameManagerEventHandler RestartLevelEvent;
         public event GameManagerEventHandler GoToMenuSceneEvent;
         public event GameManagerEventHandler GameOverEvent;
 
@@ -34,9 +34,9 @@ namespace S3
 
         public void CallEventRestartLevel()
         {
-            if (RestartToggleEvent != null)
+            if (RestartLevelEvent != null)
             {
-                RestartToggleEvent();
+                RestartLevelEvent();
             }
         }
 

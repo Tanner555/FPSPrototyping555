@@ -69,7 +69,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_GameOver.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_GoToMenuScene.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_PanelInstructions.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_References.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_RestartLevel.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_ToggleCursor.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_ToggleInventoryUI.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_ToggleMenu.cs" />
@@ -77,6 +81,13 @@
     <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_TogglePlayer.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\GeneralScripts\MainMenu.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\Master Scripts\GameManager_Master.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\Master Scripts\Item_Master.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\Master Scripts\Player_Master.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\Player Scripts\Player_AmmoBox.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\Player Scripts\Player_CanvasHurt.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\Player Scripts\Player_DetectItem.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\Player Scripts\Player_Health.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\Player Scripts\Player_Inventory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />

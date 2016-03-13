@@ -39,7 +39,6 @@ namespace S3
 
         void CheckIfCursorShouldBeLocked()
         {
-            //TODO: Cursor does not become invisible while the game is playing.
             if (isCursorLocked)
             {
                 Cursor.lockState = CursorLockMode.Locked;

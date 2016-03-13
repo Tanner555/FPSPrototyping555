@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace S3
 {
@@ -7,7 +8,7 @@ namespace S3
     {
         public void PlayGame()
         {
-            Application.LoadLevel(1);
+            SceneManager.LoadScene(1);
         }
         public void ExitGame()
         {
