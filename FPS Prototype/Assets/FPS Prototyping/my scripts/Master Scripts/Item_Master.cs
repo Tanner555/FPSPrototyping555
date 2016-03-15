@@ -16,6 +16,11 @@ namespace S3
 
         void OnEnable()
         {
+            
+        }
+
+        void Start()
+        {
             SetInitialReferences();
         }
 
@@ -24,9 +29,9 @@ namespace S3
             if(EventObjectThrow != null)
             {
                 EventObjectThrow();
-                playerMaster.CallEventHandsEmpty();
-                playerMaster.CallEventInventoryChanged();
             }
+            playerMaster.CallEventHandsEmpty();
+            playerMaster.CallEventInventoryChanged();
         }
 
         public void CallEventObjectPickup()
@@ -34,8 +39,8 @@ namespace S3
             if(EventObjectPickup != null)
             {
                 EventObjectPickup();
-                playerMaster.CallEventInventoryChanged();
             }
+            playerMaster.CallEventInventoryChanged();
         }
 
         public void CallEventPickupAction(Transform item)

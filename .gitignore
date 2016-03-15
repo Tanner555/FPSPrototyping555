@@ -1,6 +1,16 @@
 # Unity Files
 FPS Prototype/Assets/Standard Assets
+FPS Prototype/Assets/ModelAssets
 FPS Prototype/Library
+FPS Prototype/Temp
+FPS Prototype/Editor/CrossPlatformInput
+# This is the default standard assets scene, not my own
+FPS Prototype/scenes
+
+# Visual Studio Files
+*.csproj
+*.sln
+FPS Prototype/.vs
 
 # Windows image file caches
 Thumbs.db

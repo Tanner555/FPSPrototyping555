@@ -44,7 +44,7 @@ namespace S3
         {
             if(Input.GetButtonDown(buttonPickup) && Time.timeScale > 0 && itemInRange && itemAvailableForPickup.root.tag != GameManager_References._playerTag)
             {
-                Debug.Log("Pickup attempted");
+                itemAvailableForPickup.GetComponent<Item_Master>().CallEventPickupAction(rayTransformPivot);
                 
             }
         }

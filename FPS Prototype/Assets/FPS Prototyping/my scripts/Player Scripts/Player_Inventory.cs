@@ -57,7 +57,7 @@ namespace S3
                 {
                     listInventory.Add(child);
                     GameObject go = Instantiate(uiButton) as GameObject;
-                    buttonText = child.name;
+                     buttonText = child.name;
                     go.GetComponentInChildren<Text>().text = buttonText;
                     int index = counter;
                     go.GetComponent<Button>().onClick.AddListener(delegate{ ActivateInventoryItem(index); });

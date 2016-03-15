@@ -80,6 +80,18 @@
     <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_TogglePause.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\GameManager Scripts\GameManager_TogglePlayer.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\GeneralScripts\MainMenu.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\ItemScripts\Item_Ammo.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\ItemScripts\Item_Animator.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\ItemScripts\Item_Colliders.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\ItemScripts\Item_Name.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\ItemScripts\Item_Pickup.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\ItemScripts\Item_Rigidbodies.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\ItemScripts\Item_SetLayer.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\ItemScripts\Item_SetPosition.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\ItemScripts\Item_Sounds.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\ItemScripts\Item_Tag.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\ItemScripts\Item_Throw.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\ItemScripts\Item_UI.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\Master Scripts\GameManager_Master.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\Master Scripts\Item_Master.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\Master Scripts\Player_Master.cs" />
@@ -90,6 +102,7 @@
     <Compile Include="Assets\FPS Prototyping\my scripts\Player Scripts\Player_Inventory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\ModelAssets\MentalDreamsAssets\SoldierSoundsPack\ReadMe!.txt" />
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
