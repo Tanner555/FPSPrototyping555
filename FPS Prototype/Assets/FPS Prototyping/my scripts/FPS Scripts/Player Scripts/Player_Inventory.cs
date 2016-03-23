@@ -22,6 +22,7 @@ namespace S3
         void OnEnable()
         {
             SetInitialReferences();
+            DeactivateAllInventoryItems();
             UpdateInventoryListAndUI();
             CheckIfHandsEmpty();
 

@@ -3,7 +3,10 @@ FPS Prototype/Assets/Standard Assets
 FPS Prototype/Assets/ModelAssets
 FPS Prototype/Library
 FPS Prototype/Temp
-FPS Prototype/Editor/CrossPlatformInput
+FPS Prototype/Assets/Editor/CrossPlatformInput
+FPS Prototype/Assets/NodeCanvas
+FPS Prototype/Assets/Resources
+
 # This is the default standard assets scene, not my own
 FPS Prototype/scenes
 

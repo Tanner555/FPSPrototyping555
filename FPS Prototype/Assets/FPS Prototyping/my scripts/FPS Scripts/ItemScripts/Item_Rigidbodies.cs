@@ -11,7 +11,6 @@ namespace S3
         void OnEnable()
         {
             SetInitialReferences();
-            CheckIfStartsInInventory();
             itemMaster.EventObjectThrow += SetIsKinematicToFalse;
             itemMaster.EventObjectPickup += SetIsKinematicToTrue;
         }
@@ -20,6 +19,11 @@ namespace S3
         {
             itemMaster.EventObjectThrow -= SetIsKinematicToFalse;
             itemMaster.EventObjectPickup -= SetIsKinematicToTrue;
+        }
+
+        void Start()
+        {
+            CheckIfStartsInInventory();
         }
 
         void SetInitialReferences()

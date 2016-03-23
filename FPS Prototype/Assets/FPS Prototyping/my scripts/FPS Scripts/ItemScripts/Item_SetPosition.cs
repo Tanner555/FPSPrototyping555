@@ -11,12 +11,15 @@ namespace S3
         void OnEnable()
         {
             SetInitialReferences();
-            SetPositionOnPlayer();
             itemMaster.EventObjectPickup += SetPositionOnPlayer;
         }
         void OnDisable()
         {
             itemMaster.EventObjectPickup -= SetPositionOnPlayer;
+        }
+        void Start()
+        {
+            SetPositionOnPlayer();
         }
         void SetInitialReferences()
         {

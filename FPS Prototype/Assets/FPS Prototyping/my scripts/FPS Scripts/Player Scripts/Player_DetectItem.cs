@@ -14,8 +14,8 @@ namespace S3
 
         private Transform itemAvailableForPickup;
         private RaycastHit hit;
-        private float detectRange = 3;
-        private float detectRadius = 0.7f;
+        private float detectRange = 3.0f;//3;
+        private float detectRadius = 0.7f;//0.7f;
         private bool itemInRange;
 
         private float labelWidth = 200;
@@ -29,7 +29,7 @@ namespace S3
 
         void CastRayForDetectingItems()
         {
-            if(Physics.SphereCast(rayTransformPivot.position,detectRadius,rayTransformPivot.forward,out hit, detectRadius, layerToDetect))
+            if(Physics.SphereCast(rayTransformPivot.position,detectRadius,rayTransformPivot.forward,out hit, detectRange, layerToDetect))
             {
                 itemAvailableForPickup = hit.transform;
                 itemInRange = true;

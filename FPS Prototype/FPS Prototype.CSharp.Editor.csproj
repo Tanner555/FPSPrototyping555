@@ -88,6 +88,12 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>Assets\NodeCanvas\Tasks\Actions\Tween\DOTween\Editor\DOTweenEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\NodeCanvas\Tasks\Actions\Tween\DOTween\DOTween.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="FPS Prototype.CSharp.Plugins.csproj">
@@ -101,9 +107,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
+    <Compile Include="Assets\NodeCanvas\Framework\Design\Editor\Inspectors\BlackboardInspector.cs" />
+    <Compile Include="Assets\NodeCanvas\Framework\Design\Editor\Inspectors\GlobalBlackboardInspector.cs" />
+    <Compile Include="Assets\NodeCanvas\Framework\Design\Editor\Inspectors\GraphInspector.cs" />
+    <Compile Include="Assets\NodeCanvas\Framework\Design\Editor\Inspectors\GraphOwnerInspector.cs" />
+    <Compile Include="Assets\NodeCanvas\Framework\Design\Editor\Windows\AOTClassesGenerator.cs" />
+    <Compile Include="Assets\NodeCanvas\Framework\Design\Editor\Windows\ExternalInspectorWindow.cs" />
+    <Compile Include="Assets\NodeCanvas\Framework\Design\Editor\Windows\GraphEditor.cs" />
+    <Compile Include="Assets\NodeCanvas\Framework\Design\Editor\Windows\PreferedTypesEditorWindow.cs" />
+    <Compile Include="Assets\NodeCanvas\Framework\Design\Editor\Windows\QuickPopup.cs" />
+    <Compile Include="Assets\NodeCanvas\Framework\Design\Editor\Windows\SceneGraphsEditorInspector.cs" />
+    <Compile Include="Assets\NodeCanvas\Framework\Design\Editor\Windows\TaskWizardWindow.cs" />
+    <Compile Include="Assets\NodeCanvas\Framework\Design\Editor\Windows\WelcomeWindow.cs" />
+    <Compile Include="Assets\NodeCanvas\Framework\_ParadoxNotion (shared)\Design\Editor\EventDebuggerInspector.cs" />
+    <Compile Include="Assets\NodeCanvas\Modules\ActionListPlayer\Editor\ActionListPlayerInspector.cs" />
+    <Compile Include="Assets\NodeCanvas\Modules\BehaviourCanvas\BehaviourTrees\Editor\BehaviourTreeOwnerInspector.cs" />
+    <Compile Include="Assets\NodeCanvas\Modules\DialogueCanvas\Editor\DialogueActorInspector.cs" />
+    <Compile Include="Assets\NodeCanvas\Modules\DialogueCanvas\Editor\DialogueTreeInspector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ModelAssets\MentalDreamsAssets\SoldierSoundsPack\ReadMe!.txt" />
+    <None Include="Assets\NodeCanvas\!ReadMe!.txt" />
+    <None Include="Assets\NodeCanvas\Framework\_ParadoxNotion (shared)\Runtime\Serialization\_LICENSE - FULL SERIALIZER.txt" />
+    <None Include="Assets\NodeCanvas\Tasks\Actions\Tween\DOTween\DOTween.XML" />
+    <None Include="Assets\NodeCanvas\Tasks\Actions\Tween\DOTween\Editor\DOTweenEditor.XML" />
+    <None Include="Assets\NodeCanvas\Tasks\Actions\Tween\DOTween\readme.txt" />
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />

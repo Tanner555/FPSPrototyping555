@@ -12,7 +12,6 @@ namespace S3
         void OnEnable()
         {
             SetInitialReferences();
-            SetLayerOnEnable();
             itemMaster.EventObjectPickup += SetItemToPickupLayer;
             itemMaster.EventObjectThrow += SetItemToThrowLayer;
         }
@@ -21,6 +20,11 @@ namespace S3
         {
             itemMaster.EventObjectPickup -= SetItemToPickupLayer;
             itemMaster.EventObjectThrow -= SetItemToThrowLayer;
+        }
+
+        void Start()
+        {
+            SetLayerOnEnable();
         }
 
         void SetInitialReferences()
