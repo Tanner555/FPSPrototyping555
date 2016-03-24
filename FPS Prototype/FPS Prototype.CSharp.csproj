@@ -96,6 +96,19 @@
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\GameManager Scripts\GameManager_TogglePause.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\GameManager Scripts\GameManager_TogglePlayer.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\GeneralScripts\MainMenu.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Gun Scripts\Gun_Ammo.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Gun Scripts\Gun_AmmoUI.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Gun Scripts\Gun_Animator.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Gun Scripts\Gun_ApplyDamage.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Gun Scripts\Gun_ApplyForce.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Gun Scripts\Gun_BurstFireIndicator.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Gun Scripts\Gun_DynamicCrosshair.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Gun Scripts\Gun_HitEffects.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Gun Scripts\Gun_MuzzleFlash.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Gun Scripts\Gun_Reset.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Gun Scripts\Gun_Shoot.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Gun Scripts\Gun_Sounds.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Gun Scripts\Gun_StandardInput.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Ammo.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Animator.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Colliders.cs" />
@@ -110,6 +123,7 @@
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_UI.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\Enemy_Master.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\GameManager_Master.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\Gun_Master.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\Item_Master.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\Player_Master.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Player Scripts\Player_AmmoBox.cs" />
