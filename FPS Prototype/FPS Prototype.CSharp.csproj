@@ -72,6 +72,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Destructable Scripts\Destructable_Explode.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Destructable Scripts\Destructable_Health.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Destructable Scripts\Destructable_ParticleSpawn.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Destructable Scripts\Destructable_Sound.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Destructable Scripts\Destructable_TakeDamage.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\EnemyScripts\Enemy_Animation.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\EnemyScripts\Enemy_Attack.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\EnemyScripts\Enemy_CollisionField.cs" />
@@ -121,6 +126,7 @@
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Tag.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Throw.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_UI.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\Destructable_Master.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\Enemy_Master.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\GameManager_Master.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\Gun_Master.cs" />
@@ -486,6 +492,10 @@
     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+    <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
     <None Include="Assets\Standard Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

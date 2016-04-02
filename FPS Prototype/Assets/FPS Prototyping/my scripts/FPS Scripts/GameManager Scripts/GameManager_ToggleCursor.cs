@@ -6,7 +6,7 @@ namespace S3
     public class GameManager_ToggleCursor : MonoBehaviour
     {
         private GameManager_Master gameManagerMaster;
-        private bool isCursorLocked = true;
+        private bool isCursorLocked = true; 
 
         void OnEnable()
         {

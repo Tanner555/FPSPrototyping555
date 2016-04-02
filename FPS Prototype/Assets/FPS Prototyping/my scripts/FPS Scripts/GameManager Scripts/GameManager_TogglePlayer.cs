@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using RTSPrototype;
 using UnityStandardAssets.Characters.FirstPerson;
 
 namespace S3
@@ -8,6 +9,7 @@ namespace S3
     {
         public FirstPersonController playerController;
         private GameManager_Master gameManagerMaster;
+        private RTSGameMode gamemode;
        
         void OnEnable()
         {
@@ -25,11 +27,12 @@ namespace S3
         void SetInitialReferences()
         {
             gameManagerMaster = GetComponent<GameManager_Master>();
+            gamemode = GetComponent<RTSGameMode>();
         }
 
         void TogglePlayerController()
         {
-            if(playerController != null)
+            if (playerController != null)
             {
                 playerController.enabled = !playerController.enabled;
             }

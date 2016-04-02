@@ -1,8 +1,11 @@
-Unity Standard Assets: Characters and Prototyping
+Unity Standard Assets: Characters, Prototyping, ParticleSystems
 //Asset Store//
+//Models//
 ice golem
 soldier sounds pack
 modern weapons pack
 PostApocalypseGunsDemo
 WeaponsHQ4
+Detonator Explosion Framework
+//Frameworks//
 NodeCanvas

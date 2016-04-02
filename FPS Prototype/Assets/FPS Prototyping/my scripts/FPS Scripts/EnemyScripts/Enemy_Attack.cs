@@ -74,7 +74,7 @@ namespace S3
                     Vector3 toOther = attackTarget.position - myTransform.position;
                     if(Vector3.Dot(toOther,myTransform.forward) > 0.5f)
                     {
-                        attackTarget.GetComponent<Player_Master>().CallEventPlayerHealthDeduction(attackDamage, this.gameObject);
+                        attackTarget.GetComponent<Player_Master>().CallEventPlayerHealthDeduction(attackDamage);
                     }
                 }
             }

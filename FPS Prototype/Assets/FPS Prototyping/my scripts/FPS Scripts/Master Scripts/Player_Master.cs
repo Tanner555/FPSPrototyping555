@@ -50,7 +50,7 @@ namespace S3
         }
 
         //Call must have a instigator for damage to be received
-        public void CallEventPlayerHealthDeduction(int dmg, GameObject instigator)
+        public void CallEventPlayerHealthDeduction(int dmg)
         {
             if (EventPlayerHealthDeduction != null)
             {
@@ -58,7 +58,7 @@ namespace S3
             }
         }
 
-        public void CallEventPlayerHealthIncrease(int dmg, GameObject instigator)
+        public void CallEventPlayerHealthIncrease(int dmg)
         {
             if (EventPlayerHealthIncrease != null)
             {

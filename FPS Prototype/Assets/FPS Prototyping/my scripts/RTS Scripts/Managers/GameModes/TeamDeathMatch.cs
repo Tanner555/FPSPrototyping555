@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace RTSPrototype
 {
-    public class TeamDeathMatch : MonoBehaviour
+    public class TeamDeathMatch : RTSGameMode
     {
 
         /*
@@ -31,17 +31,6 @@ private:
 	UFUNCTION(BlueprintCallable, Category = SpawningFactionMembers)
 	void SpawnFactionMember(TEnumAsByte<EFactions> Faction, FVector SpawnerLocation);
         */
-
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        
     }
 }

@@ -1,25 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.Characters.FirstPerson;
 using S3;
 
 namespace RTSPrototype
 {
-    public class AllyMember : Player_Master
+    public class AllyMember : MonoBehaviour
     {
         public RTSGameMode.ECommanders GeneralCommander;
         public GameObject ThirdPersonGObject;
         [HideInInspector]
-        public RTSGameMode gamemode
-        {
-            get
-            {
-                RTSGameMode GM = GameObject.FindObjectOfType<RTSGameMode>();
-                return (GM != null) ? GM : null;
-            }
-        }
+        public RTSGameMode gamemode;
+        [HideInInspector]
+        public FirstPersonController FPController;
+        [HideInInspector]
+        public Camera WeaponCamera;
+        [HideInInspector]
+        public Camera FPCamera;
+        public Player_Master playerMaster;
         public ParticleSystem DeathSparks;
         public AudioClip DeathSound;
+        public List<SwitchAllyComponents> NonPlayerCompSwitches;
+        public List<SwitchAllyComponents> PlayerCompSwitches;
+
         [HideInInspector]
         public bool isTargetingEnemy
         {
@@ -47,7 +51,7 @@ namespace RTSPrototype
         public bool IsExeShootBehavior { get; set; }
         public bool IsTargettingEnemy { get; set; }
         public bool WantsFreeMovement { get; set; }
-        public RTSGameMode.EFactions AllyFaction { get; set; }
+        public RTSGameMode.EFactions AllyFaction;
         public PartyManager PartyManager { get; set; }
         public int FactionPlayerCount { get; set; }
         public int GeneralPlayerCount { get; set; }
@@ -68,7 +72,32 @@ namespace RTSPrototype
 
         protected virtual void OnEnable()
         {
-
+            playerMaster = GetComponent<Player_Master>();
+            gamemode = GameObject.FindObjectOfType<RTSGameMode>();
+            FPController = GetComponent<FirstPersonController>();
+            Camera[] camArray = GetComponentsInChildren<Camera>();
+            if (camArray.Length > 0)
+            {
+                for (int i = 0; i < camArray.Length; i++)
+                {
+                    if (camArray[i].gameObject.name == "FirstPersonCharacter")
+                    {
+                        FPCamera = camArray[i].gameObject.GetComponent<Camera>();
+                    }
+                    else if (camArray[i].gameObject.name == "WeaponCamera")
+                    {
+                        WeaponCamera = camArray[i].gameObject.GetComponent<Camera>();
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogWarning("No cameras on player");
+            }
+            if (AllyFaction == RTSGameMode.EFactions.Faction_Default)
+            {
+                AllyFaction = RTSGameMode.EFactions.Faction_Allies;
+            }
         }
 
         protected virtual void OnDisable()
@@ -88,7 +117,7 @@ namespace RTSPrototype
 
         }
 
-        protected override float GetDamageRate(GameObject instigator)
+        public virtual float GetDamageRate(GameObject instigator)
         {
             return baseEnemyDamage;
         }
@@ -140,6 +169,12 @@ namespace RTSPrototype
            
         }
 
+        [System.Serializable]
+        public struct SwitchAllyComponents
+        {
+            public Behaviour MyComponent;
+            public bool ShouldEnable;
+        }
 
     }
 }

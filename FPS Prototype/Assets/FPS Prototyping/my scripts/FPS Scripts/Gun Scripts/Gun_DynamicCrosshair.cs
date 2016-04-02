@@ -12,7 +12,7 @@ namespace S3
         private Transform weaponCamera;
         private float playerSpeed;
         private float nextCaptureTime;
-        private float captureInterval = 0.5f;
+        private float captureInterval = 0.2f;
         private Vector3 lastPosition;
         public Animator crosshairAnimator;
         public string weaponCameraName;

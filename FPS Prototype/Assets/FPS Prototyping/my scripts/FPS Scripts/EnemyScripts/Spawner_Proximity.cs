@@ -48,7 +48,7 @@ namespace S3
 
         void SpawnObjects()
         {
-            for(int i = 0; i < numberToSpawn; i++)
+            for (int i = 0; i < numberToSpawn; i++)
             {
                 spawnPosition = myTransform.position + Random.insideUnitSphere * 5;
                 Instantiate(objectToSpawn, spawnPosition, myTransform.rotation);

@@ -5,7 +5,7 @@ using S3;
 
 namespace RTSPrototype
 {
-    public class RTSGameMode : GameManager_Master
+    public class RTSGameMode : MonoBehaviour
     {
         [HideInInspector]
         public enum ECommanders

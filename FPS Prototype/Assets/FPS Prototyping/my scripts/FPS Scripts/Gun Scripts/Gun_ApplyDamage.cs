@@ -12,10 +12,12 @@ namespace S3
         {
             SetInitialReferences();
             gunMaster.EventShotEnemy += ApplyDamage;
+            gunMaster.EventShotDefault += ApplyDamage;
         }
         void OnDisable()
         {
             gunMaster.EventShotEnemy -= ApplyDamage;
+            gunMaster.EventShotDefault -= ApplyDamage;
         }
         void SetInitialReferences()
         {
@@ -23,10 +25,7 @@ namespace S3
         }
         void ApplyDamage(Vector3 hitPosition, Transform hitTransform)
         {
-            if(hitTransform.GetComponent<Enemy_TakeDamage>() != null)
-            {
-                hitTransform.GetComponent<Enemy_TakeDamage>().ProcessDamage(damage);
-            }
+            hitTransform.SendMessage("ProcessDamage",damage,SendMessageOptions.DontRequireReceiver);
         }
     }
 }
