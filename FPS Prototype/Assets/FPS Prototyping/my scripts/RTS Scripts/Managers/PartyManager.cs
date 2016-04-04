@@ -14,6 +14,8 @@ namespace RTSPrototype
         public RTSGameMode.EFactions GeneralFaction;
         [HideInInspector]
         public RTSGameMode gamemode;
+        [HideInInspector]
+        public GameManager_Master gameManagerMaster;
         public Vector3 FollowAllyCameraOffset;
         [HideInInspector]
         public Camera AllyCommandWeaponCamera;
@@ -45,6 +47,11 @@ namespace RTSPrototype
             if(gamemode == null)
             {
                 Debug.LogWarning("RTS GameMode does not exist!");
+            }
+            gameManagerMaster = GameObject.FindObjectOfType<GameManager_Master>();
+            if(gameManagerMaster == null)
+            {
+                Debug.LogWarning("Gamemanager does not exist!");
             }
             //turn mouse cursor on here
             //Cursor.lockState = CursorLockMode.None;
@@ -97,8 +104,14 @@ namespace RTSPrototype
 
         public void SetAllyInCommand(AllyMember setToCommand)
         {
-            if (PartyMembers.Contains(setToCommand))
+            if (gameManagerMaster == null)
+                return;
+
+            bool isMenuOn = gameManagerMaster.isMenuOn;
+            bool isInventoryOn = gameManagerMaster.isInventoryUIOn;
+            if (PartyMembers.Contains(setToCommand) && !isMenuOn && !isInventoryOn)
             {
+                //Before Ally Set
                 AllyCommandWeaponCamera = setToCommand.WeaponCamera;
                 AllyCommandFPCamera = setToCommand.FPCamera; 
                 if (AllyCommandWeaponCamera && AllyCommandFPCamera)
@@ -109,9 +122,15 @@ namespace RTSPrototype
                     Vector3 locationAOffset = FollowAllyCameraOffset + wCamLocation;
                     //this.transform.parent = setToCommand.transform;
                     //this.transform.localPosition = locationAOffset;
-                   // this.transform.localRotation = wCamRotation;
+                    // this.transform.localRotation = wCamRotation;
                 }
-
+                if (AllyInCommand != null)
+                {
+                    //Set previous allyincommand's attributes
+                    //AllyInCommand.gameObject.GetComponent<Player_Master>().CallEventHandsEmpty();
+                    AllyInCommand.GetComponent<AllyInputCenter>().ClearGunCommands();
+                }
+                //After Ally Set
                 AllyInCommand = setToCommand;
                 if (gamemode)
                 {

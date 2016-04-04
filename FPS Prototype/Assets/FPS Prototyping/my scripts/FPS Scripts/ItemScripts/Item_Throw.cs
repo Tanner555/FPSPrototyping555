@@ -23,7 +23,7 @@ namespace S3
         // Update is called once per frame
         void Update()
         {
-            CheckForThrowInput();
+           // CheckForThrowInput();
         }
 
         void SetInitialReferences()
@@ -34,15 +34,15 @@ namespace S3
 
         }
 
-        void CheckForThrowInput()
+        public void CheckForThrowInput()
         {
-            if(throwButtonName != null)
-            {
-                if(Input.GetButtonDown(throwButtonName) && Time.timeScale > 0 && canBeThrown && myTransform.root.CompareTag(GameManager_References._playerTag))
+            //if(throwButtonName != null)
+            //{
+                if(/*Input.GetButtonDown(throwButtonName) &&*/ Time.timeScale > 0 && canBeThrown && myTransform.root.CompareTag(GameManager_References._playerTag))
                 {
                     CarryOutThrowActions();
                 }
-            }
+            //}
         }
 
         void CarryOutThrowActions()

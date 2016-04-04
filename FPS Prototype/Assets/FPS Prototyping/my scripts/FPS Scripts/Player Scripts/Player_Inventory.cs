@@ -14,6 +14,7 @@ namespace S3
         private Player_Master playerMaster;
         private GameManager_ToggleInventoryUI inventoryUIScript;
         private float timeToPlaceInHands = 0.1f;
+        public Transform CurrentHeldItem { get { return currentlyHeldItem; } }
         private Transform currentlyHeldItem;
         private int counter;
         private string buttonText;

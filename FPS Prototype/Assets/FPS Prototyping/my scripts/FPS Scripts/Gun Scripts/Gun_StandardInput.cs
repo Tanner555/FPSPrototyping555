@@ -15,6 +15,10 @@ namespace S3
         public string attackButtonName;
         public string reloadButtonName;
         public string burstFireButtonName;
+        //For Ally Input Center
+        public bool AttemptingGunShoot = false;
+        public bool AttemptingGunReload = false;
+        public bool AttemptingActivateBurstFire = false;
 
         // Use this for initialization
         void Start()
@@ -44,21 +48,21 @@ namespace S3
             {
                 if(isAutomatic && !isBurstFireActive)
                 {
-                    if (Input.GetButton(attackButtonName))
+                    if (/*Input.GetButton(attackButtonName)*/AttemptingGunShoot)
                     {
                         AttemptAttack();
                     }
                 }
                 else if (isAutomatic && isBurstFireActive)
                 {
-                    if (Input.GetButtonDown(attackButtonName))
+                    if (/*Input.GetButtonDown(attackButtonName)*/AttemptingGunShoot)
                     {
                         StartCoroutine(RunBurstFire());
                     }
                 }
                 else if (!isAutomatic)
                 {
-                    if (Input.GetButtonDown(attackButtonName))
+                    if (/*Input.GetButtonDown(attackButtonName)*/AttemptingGunShoot)
                     {
                         AttemptAttack();
                     }
@@ -81,18 +85,20 @@ namespace S3
 
         void CheckForReloadRequest()
         {
-            if(Input.GetButtonDown(reloadButtonName) && Time.timeScale > 0 && myTransform.root.CompareTag(GameManager_References._playerTag))
+            if(/*Input.GetButtonDown(reloadButtonName)*/AttemptingGunReload && Time.timeScale > 0 && myTransform.root.CompareTag(GameManager_References._playerTag))
             {
                 gunMaster.CallEventRequestReload();
+                AttemptingGunReload = false;
             }
         }
 
         void CheckForBurstFireToggle()
         {
-            if (Input.GetButtonDown(burstFireButtonName) && Time.timeScale > 0 && myTransform.root.CompareTag(GameManager_References._playerTag))
+            if (/*Input.GetButtonDown(burstFireButtonName)*/AttemptingActivateBurstFire && Time.timeScale > 0 && myTransform.root.CompareTag(GameManager_References._playerTag))
             {
                 isBurstFireActive = !isBurstFireActive;
                 gunMaster.CallEventToggleBurstFire();
+                AttemptingActivateBurstFire = false;
             }
         }
 

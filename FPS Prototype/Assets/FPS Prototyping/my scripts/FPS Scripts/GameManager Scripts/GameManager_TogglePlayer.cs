@@ -10,6 +10,7 @@ namespace S3
         public FirstPersonController playerController;
         private GameManager_Master gameManagerMaster;
         private RTSGameMode gamemode;
+        private PartyManager partymanager;
        
         void OnEnable()
         {
@@ -28,11 +29,19 @@ namespace S3
         {
             gameManagerMaster = GetComponent<GameManager_Master>();
             gamemode = GetComponent<RTSGameMode>();
+            partymanager = GameObject.FindObjectOfType<PartyManager>();
         }
 
         void TogglePlayerController()
         {
-            if (playerController != null)
+            if(partymanager != null)
+            {
+                if (partymanager.AllyInCommand != null)
+                {
+                    var fpsCon = partymanager.AllyInCommand.transform.GetComponent<FirstPersonController>();
+                    fpsCon.enabled = !fpsCon.enabled;
+                }
+            }else if (playerController != null)
             {
                 playerController.enabled = !playerController.enabled;
             }
