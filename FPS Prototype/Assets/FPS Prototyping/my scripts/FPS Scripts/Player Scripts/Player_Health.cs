@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using RTSPrototype;
 
 namespace S3
 {
@@ -8,7 +9,8 @@ namespace S3
     {
         private GameManager_Master gameManagerMaster;
         private Player_Master playerMaster;
-        public int playerHealth;
+        public int playerHealth = 100;
+        public int playerMaxHealth = 100;
         public Text healthText;
 
         void OnEnable()
@@ -34,6 +36,7 @@ namespace S3
         {
             gameManagerMaster = GameObject.Find("GameManager").GetComponent<GameManager_Master>();
             playerMaster = GetComponent<Player_Master>();
+            playerHealth = playerMaxHealth;
         }
         
         IEnumerator TestHealthDeduction()
@@ -48,7 +51,7 @@ namespace S3
             if(playerHealth <= 0)
             {
                 playerHealth = 0;
-                gameManagerMaster.CallEventGameOver();
+               // gameManagerMaster.CallEventGameOver();
             }
 
             SetUI();
@@ -57,9 +60,9 @@ namespace S3
         void IncreaseHealth(int healthChange)
         {
             playerHealth += healthChange;
-            if(playerHealth > 100)
+            if(playerHealth > playerMaxHealth)
             {
-                playerHealth = 100;
+                playerHealth = playerMaxHealth;
             }
 
             SetUI();

@@ -8,6 +8,8 @@ namespace RTSPrototype
 {
     public class AllyMember : MonoBehaviour
     {
+        //Inspector Set Variables
+        public RTSGameMode.EFactions AllyFaction;
         public RTSGameMode.ECommanders GeneralCommander;
         public GameObject ThirdPersonGObject;
         [HideInInspector]
@@ -19,11 +21,13 @@ namespace RTSPrototype
         [HideInInspector]
         public Camera FPCamera;
         public Player_Master playerMaster;
+        public Player_Inventory pInventory;
         public ParticleSystem DeathSparks;
         public AudioClip DeathSound;
         public List<SwitchAllyComponents> NonPlayerCompSwitches;
         public List<SwitchAllyComponents> PlayerCompSwitches;
 
+        //Properties
         [HideInInspector]
         public bool isTargetingEnemy
         {
@@ -32,29 +36,179 @@ namespace RTSPrototype
         [HideInInspector]
         public AllyMember targetedEnemy { get; set; }
 
-        public float AllyHealth { get; set; }
-        public float AllyMaxHealth { get; set; }
-        public int CurrentAmmo { get; set; }
-        public int MaxAmmo
-        {
-            get; set;
+        public int AllyHealth {
+            get
+            {
+                try
+                {
+                    return playerMaster.GetComponent<Player_Health>().playerHealth;
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
         }
-        public float baseEnemyDamage
+        public int AllyMaxHealth
         {
-            get; set;
+            get
+            {
+                try
+                {
+                    return playerMaster.GetComponent<Player_Health>().playerMaxHealth;
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+        }
+        public int CurrentGunAmmoCarried
+        {
+            get
+            {
+                try
+                {
+                    return GetAmmoTypeFromGunMaster(getCurrentGun).ammoCurrentCarried;
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+        }
+        
+        public int CurrentGunMaxAmmoCarried
+        {
+            get
+            {
+                try
+                {
+                    return GetAmmoTypeFromGunMaster(getCurrentGun).ammoMaxQuantity;
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+        }
+        private int baseEnemyDamageMultiplier
+        {
+            get
+            {
+                return 1;
+            }
         }
 
         //AllyAttributes
 
-        public bool isAlive { get; set; }
-        public bool CanFire { get; set; }
+        public bool isAlive { get { return AllyHealth > 0; } }
+        public bool CanFire
+        {
+            get
+            {
+                try
+                {
+                    return getCurrentGun.GetComponent<Gun_Ammo>().currentAmmo > 0 && isCurrentItemGun;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
         public bool IsExeShootBehavior { get; set; }
         public bool IsTargettingEnemy { get; set; }
         public bool WantsFreeMovement { get; set; }
-        public RTSGameMode.EFactions AllyFaction;
-        public PartyManager PartyManager { get; set; }
-        public int FactionPlayerCount { get; set; }
-        public int GeneralPlayerCount { get; set; }
+        //Gun Properties
+        public float lowAmmoThreshold = 15.0f;
+        public bool isCurrentItemGun
+        {
+            get
+            {
+                try
+                {
+                    return pInventory.CurrentHeldItem.GetComponent<Gun_Master>();
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+        public Gun_Master getCurrentGun
+        {
+            get
+            {
+                try
+                {
+                    return pInventory.CurrentHeldItem.GetComponent<Gun_Master>();
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+        public List<Gun_Master> getAllGuns
+        {
+            get
+            {
+                List<Gun_Master> guns = new List<Gun_Master>();
+                if (pInventory != null)
+                {
+                    foreach (var item in pInventory.MyInventory)
+                    {
+                        if (item.GetComponent<Gun_Master>())
+                        {
+                            guns.Add(item.GetComponent<Gun_Master>());
+                        }
+                    }
+                }
+                return guns;
+            }
+        }
+        //Faction Properties
+        public PartyManager PartyManager
+        {
+            get
+            {
+                foreach(var pManager in GameObject.FindObjectsOfType<PartyManager>())
+                {
+                    if (pManager.GeneralCommander == GeneralCommander)
+                        return pManager;
+                }
+                return null;
+            }
+        }
+        public int FactionPlayerCount
+        {
+            get
+            {
+                try
+                {
+                    return gamemode.GetAllyFactionPlayerCount(this);
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+        }
+        public int GeneralPlayerCount
+        {
+            get
+            {
+                try
+                {
+                    return gamemode.GetAllyGeneralPlayerCount(this);
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+        }
 
 
         //Keep track of kills and points for gamemode
@@ -64,7 +218,7 @@ namespace RTSPrototype
         private int _Kills;
         private int _Points;
         private int _Deaths;
-        private bool AllyCanFire;
+        //Other private variables
         private bool ExecutingShootingBehavior;
         private bool wantsFreedomToMove;
         private float freeMoveThreshold;
@@ -72,7 +226,230 @@ namespace RTSPrototype
 
         protected virtual void OnEnable()
         {
+            SetInitialReferences();
+            playerMaster.EventAllyMemberDeath += AllyOnDeath;
+        }
+
+        protected virtual void OnDisable()
+        {
+            playerMaster.EventAllyMemberDeath -= AllyOnDeath;
+        }
+
+        //Use this for initialization
+        protected virtual void Start()
+        {
+           
+        }
+
+        // Update is called once per frame
+        protected virtual void Update()
+        {
+
+        }
+
+        public virtual int GetDamageMultiplier(ApplyDamageValues _damagevalues)
+        {
+            return baseEnemyDamageMultiplier;
+        }
+
+        private void AllyAttemptGunShootSwitch(bool shouldShoot)
+        {
+            if (CanFire && getCurrentGun != null)
+            {
+                if (CurrentGunAmmoCarried <= 0)
+                {
+                    getCurrentGun.GetComponent<Gun_StandardInput>().AttemptingGunShoot = false;
+                    return;
+                }
+                else
+                {
+                    getCurrentGun.GetComponent<Gun_StandardInput>().AttemptingGunShoot = shouldShoot;
+                }
+            }
+        }
+
+        private void AllyAttemptGunReloadSwitch(bool shouldReload)
+        {
+            if (getCurrentGun != null)
+            {
+                getCurrentGun.GetComponent<Gun_StandardInput>().AttemptingGunReload = shouldReload;
+            }
+        }
+
+        private void AllyAttemptGunBurstFireSwitch(bool shouldBurst)
+        {
+            if (CanFire && getCurrentGun != null)
+            {
+                getCurrentGun.GetComponent<Gun_StandardInput>().AttemptingActivateBurstFire = shouldBurst;
+            }
+        }
+
+        public virtual void TakeDamage(ApplyDamageValues _damageValues)
+        {
+            if(_damageValues.mydamage > 0)
+            {
+                int _damage = _damageValues.mydamage * _damageValues.allyInstigator.GetDamageMultiplier(_damageValues);
+                playerMaster.CallEventPlayerHealthDeduction(_damage);
+                if(AllyHealth <= 0)
+                {
+                    playerMaster.CallEventAllyMemberDeath(this, _damageValues.allyInstigator);
+                }
+            }
+
+        }
+
+        protected void AllyOnDeath(AllyMember pendingDeath, AllyMember _instigator)
+        {
+            Debug.Log("I am dead!");
+            //handle visual cue for death scenario
+            
+            //if gamemode, find allies and exclude this ally
+
+        }
+
+        public RaycastHit PerformRaycastHit(Vector3 WorldLocation, Vector3 WorldDirection)
+        {
+            RaycastHit hit;
+            Physics.Raycast(WorldLocation, WorldDirection, out hit);
+            return hit;
+        }
+
+        public void StartShootingBehavior()
+        {
+            AllyAttemptGunBurstFireSwitch(true);
+            AllyAttemptGunShootSwitch(true);
+        }
+
+        public void StopShootingBehavior()
+        {
+            AllyAttemptGunBurstFireSwitch(false);
+            AllyAttemptGunShootSwitch(false);
+        }
+
+        public bool IsEnemyFor(AllyMember player)
+        {
+            return player.AllyFaction != AllyFaction;
+        }
+
+        public void ToggleFreeMovement()
+        {
+
+        }
+
+        public void ResetAllyStats()
+        {
+           
+        }
+
+        public bool isGunLowOnAmmo(Gun_Master gun)
+        {
+            try
+            {
+                string gName = gun.GetComponent<Gun_Ammo>().ammoName;
+                foreach(var ammoTypes in GetComponent<Player_AmmoBox>().typesOfAmmunition)
+                {
+                    if(ammoTypes.ammoName == gName)
+                    {
+                        if(ammoTypes.ammoCurrentCarried / ammoTypes.ammoMaxQuantity < lowAmmoThreshold)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                Debug.LogError("Gun requested did not meet all required specifications.");
+            }
+            return false;
+        }
+
+        public Player_AmmoBox.AmmoTypes GetAmmoTypeFromGunMaster(Gun_Master gun)
+        {
+            try
+            {
+                foreach(var typeOfAmmo in GetComponent<Player_AmmoBox>().typesOfAmmunition)
+                {
+                    if(typeOfAmmo.ammoName == gun.GetComponent<Gun_Ammo>().ammoName)
+                    {
+                        return typeOfAmmo;
+                    }
+                }
+            }
+            catch
+            {
+                Debug.LogError("Get Ammo Type request did not work!");
+            }
+            return null;
+        }
+
+        public Gun_Master FindGunWMostAmmo()
+        {
+            List<string> gunMostNameList = new List<string>();
+            try
+            {
+                //finds gun with the highest ammo count
+                //does not factor threshold
+                int lastMostAmmo = 0;
+                foreach (var ammoTypes in GetComponent<Player_AmmoBox>().typesOfAmmunition)
+                {
+                    if(ammoTypes.ammoCurrentCarried > lastMostAmmo)
+                    {
+                        lastMostAmmo = ammoTypes.ammoCurrentCarried;
+                        gunMostNameList.Add(ammoTypes.ammoName);
+                    }
+                }
+                if(gunMostNameList.Count > 0 && lastMostAmmo > 0)
+                {
+                    //Look inside of inventory for matching guns and return
+                    //the gun if a match is found
+                    for (int i = gunMostNameList.Count - 1; i > 0; i--)
+                    {
+                        foreach(var gun in getAllGuns)
+                        {
+                            if(gun.GetComponent<Gun_Ammo>().ammoName == gunMostNameList[i])
+                            {
+                                return gun;
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                Debug.LogError("Find Gun request did not meet all required specifications.");
+            }
+            return null;
+        }
+
+        [System.Serializable]
+        public struct SwitchAllyComponents
+        {
+            public Behaviour MyComponent;
+            public bool ShouldEnable;
+        }
+
+        [HideInInspector]
+        public struct ApplyDamageValues
+        {
+            public AllyMember allyInstigator;
+            public Transform mytransform;
+            public int mydamage;
+            public Vector3 hitPosition;
+
+            public ApplyDamageValues(AllyMember _instigator, Transform _transform, int _damage, Vector3 _hitPos)
+            {
+                allyInstigator = _instigator;
+                mytransform = _transform;
+                mydamage = _damage;
+                hitPosition = _hitPos;
+            }
+        }
+
+        void SetInitialReferences()
+        {
             playerMaster = GetComponent<Player_Master>();
+            pInventory = GetComponent<Player_Inventory>();
             gamemode = GameObject.FindObjectOfType<RTSGameMode>();
             FPController = GetComponent<FirstPersonController>();
             Camera[] camArray = GetComponentsInChildren<Camera>();
@@ -98,82 +475,7 @@ namespace RTSPrototype
             {
                 AllyFaction = RTSGameMode.EFactions.Faction_Allies;
             }
-        }
 
-        protected virtual void OnDisable()
-        {
-
-        }
-
-        //Use this for initialization
-        protected virtual void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        protected virtual void Update()
-        {
-
-        }
-
-        public virtual float GetDamageRate(GameObject instigator)
-        {
-            return baseEnemyDamage;
-        }
-
-        public void AllyFire()
-        {
-
-        }
-
-        public void AllyMoveForward(float Val)
-        {
-
-        }
-
-        public void AllyMoveRight(float Val)
-        {
-
-        }
-
-        public RaycastHit PerformRaycastHit(Vector3 WorldLocation, Vector3 WorldDirection)
-        {
-            RaycastHit hit;
-            Physics.Raycast(WorldLocation, WorldDirection, out hit);
-            return hit;
-        }
-
-        public void StartShootingBehavior()
-        {
-
-        }
-
-        public void StopShootingBehavior()
-        {
-
-        }
-
-        public bool IsEnemyFor(AllyMember player)
-        {
-            return true;
-        }
-
-        public void ToggleFreeMovement()
-        {
-
-        }
-
-        public void ResetAllyStats()
-        {
-           
-        }
-
-        [System.Serializable]
-        public struct SwitchAllyComponents
-        {
-            public Behaviour MyComponent;
-            public bool ShouldEnable;
         }
 
     }

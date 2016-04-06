@@ -15,6 +15,7 @@ namespace S3
         public delegate void GunHitEventHandler(Vector3 hitPosition, Transform hitTransform);
         public event GunHitEventHandler EventShotDefault;
         public event GunHitEventHandler EventShotEnemy;
+        public event GunHitEventHandler EventShotAllyMember;
 
         public delegate void GunAmmoEventHandler(int currentAmmo, int carriedAmmo);
         public event GunAmmoEventHandler EventAmmoChanged;
@@ -78,6 +79,14 @@ namespace S3
             if (EventShotEnemy != null)
             {
                 EventShotEnemy(hPos, hTransform);
+            }
+        }
+
+        public void CallEventShotAllyMember(Vector3 hPos, Transform hTransform)
+        {
+            if(EventShotAllyMember != null)
+            {
+                EventShotAllyMember(hPos,hTransform);
             }
         }
 

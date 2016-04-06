@@ -28,8 +28,16 @@ namespace S3
         void SetInitialReferences()
         {
             gameManagerMaster = GetComponent<GameManager_Master>();
-            gamemode = GetComponent<RTSGameMode>();
-            partymanager = GameObject.FindObjectOfType<PartyManager>();
+            try {
+                gamemode = GetComponent<RTSGameMode>();
+                partymanager = GameObject.FindObjectOfType<PartyManager>();
+                }
+            catch
+            {
+                gamemode = null;
+                partymanager = null;
+                Debug.Log("No partymanager or gamemode in the scene!");
+            }
         }
 
         void TogglePlayerController()

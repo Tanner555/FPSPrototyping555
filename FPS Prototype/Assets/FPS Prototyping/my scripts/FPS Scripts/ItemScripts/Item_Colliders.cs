@@ -14,6 +14,7 @@ namespace S3
             SetInitialReferences();
             itemMaster.EventObjectThrow += EnableColliders;
             itemMaster.EventObjectPickup += DisableColliders;
+            Invoke("CheckIfStartsInInventory", 0.25f);
         }
 
         void OnDisable()
@@ -22,10 +23,10 @@ namespace S3
             itemMaster.EventObjectPickup -= DisableColliders;
         }
 
-        void Start()
-        {
-            CheckIfStartsInInventory();
-        }
+        //void Start()
+        //{
+        //    CheckIfStartsInInventory();
+        //}
 
         void SetInitialReferences()
         {

@@ -18,6 +18,7 @@ namespace S3
         private Transform currentlyHeldItem;
         private int counter;
         private string buttonText;
+        public List<Transform> MyInventory { get { return listInventory; } }
         private List<Transform> listInventory = new List<Transform>();
 
         void OnEnable()

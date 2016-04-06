@@ -136,16 +136,14 @@ namespace RTSPrototype
 
         Gun_StandardInput GetGunInput()
         {
-            Gun_StandardInput gunInput = null;
             try
             {
-                gunInput = inventory.CurrentHeldItem.GetComponent<Gun_StandardInput>();
+                return inventory.CurrentHeldItem.GetComponent<Gun_StandardInput>();
             }
             catch
             {
-                gunInput = null;
+                return null;
             }
-            return gunInput;
         }
 
         void CheckForCompErrors()

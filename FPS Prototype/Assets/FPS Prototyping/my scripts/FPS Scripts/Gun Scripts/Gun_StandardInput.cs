@@ -24,6 +24,23 @@ namespace S3
         void Start()
         {
             SetInitialReferences();
+            gunMaster.EventRequestGunReset += ResetInputAttributes;
+        }
+
+        void OnEnable()
+        {
+            try {
+                gunMaster.EventRequestGunReset += ResetInputAttributes;
+            }
+            catch
+            {
+
+            }
+        }
+
+        void OnDisable()
+        {
+            gunMaster.EventRequestGunReset -= ResetInputAttributes;
         }
 
         // Update is called once per frame
@@ -109,6 +126,13 @@ namespace S3
             AttemptAttack();
             yield return new WaitForSeconds(attackRate);
             AttemptAttack();
+        }
+
+        void ResetInputAttributes()
+        {
+            AttemptingGunShoot = false;
+            AttemptingGunReload = false;
+            AttemptingActivateBurstFire = false;
         }
     }
 }

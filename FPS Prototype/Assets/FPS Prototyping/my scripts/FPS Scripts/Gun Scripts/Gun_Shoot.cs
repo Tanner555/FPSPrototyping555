@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using RTSPrototype;
 
 namespace S3
 {
@@ -41,6 +42,12 @@ namespace S3
                 if (hit.transform.CompareTag(GameManager_References._enemyTag))
                 {
                     gunMaster.CallEventShotEnemy(hit.point, hit.transform);
+                }else if (hit.transform.CompareTag(GameManager_References._playerTag))
+                {
+                    if (hit.transform.GetComponent<AllyMember>())
+                    {
+                        gunMaster.CallEventShotAllyMember(hit.point, hit.transform);
+                    }
                 }
             }
 

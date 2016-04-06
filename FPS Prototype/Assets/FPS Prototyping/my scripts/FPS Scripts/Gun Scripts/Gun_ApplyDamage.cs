@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using RTSPrototype;
 
 namespace S3
 {
@@ -13,11 +14,13 @@ namespace S3
             SetInitialReferences();
             gunMaster.EventShotEnemy += ApplyDamage;
             gunMaster.EventShotDefault += ApplyDamage;
+            gunMaster.EventShotAllyMember += ApplyDamageToAlly;
         }
         void OnDisable()
         {
             gunMaster.EventShotEnemy -= ApplyDamage;
             gunMaster.EventShotDefault -= ApplyDamage;
+            gunMaster.EventShotAllyMember -= ApplyDamageToAlly;
         }
         void SetInitialReferences()
         {
@@ -27,5 +30,12 @@ namespace S3
         {
             hitTransform.SendMessage("ProcessDamage",damage,SendMessageOptions.DontRequireReceiver);
         }
+
+        void ApplyDamageToAlly(Vector3 hitPosition, Transform hitTransform)
+        {
+            AllyMember.ApplyDamageValues dValues = new AllyMember.ApplyDamageValues(transform.root.GetComponent<AllyMember>(), transform.root, damage, hitPosition);
+            hitTransform.SendMessage("TakeDamage", dValues, SendMessageOptions.DontRequireReceiver);
+        }
+
     }
 }

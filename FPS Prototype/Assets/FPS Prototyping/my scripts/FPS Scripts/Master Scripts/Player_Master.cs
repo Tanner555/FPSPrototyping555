@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using RTSPrototype;
 
 namespace S3
 {
@@ -16,6 +17,9 @@ namespace S3
         public delegate void PlayerHealthEventHandler(int healthChange);
         public event PlayerHealthEventHandler EventPlayerHealthDeduction;
         public event PlayerHealthEventHandler EventPlayerHealthIncrease;
+
+        public delegate void AllyDeathEventHandler(AllyMember pendingDeath, AllyMember instigator);
+        public event AllyDeathEventHandler EventAllyMemberDeath;
 
         public void CallEventInventoryChanged()
         {
@@ -66,9 +70,12 @@ namespace S3
             }
         }
 
-        protected virtual float GetDamageRate(GameObject instigator)
+        public void CallEventAllyMemberDeath(AllyMember pendingDeath, AllyMember instigator)
         {
-            return 0;
+            if(EventAllyMemberDeath != null)
+            {
+                EventAllyMemberDeath(pendingDeath, instigator);
+            }
         }
 
     }
