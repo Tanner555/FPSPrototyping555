@@ -14,7 +14,15 @@ namespace S3
        
         void OnEnable()
         {
-            SetInitialReferences();
+            //SetInitialReferences();
+            //gameManagerMaster.MenuToggleEvent += TogglePlayerController;
+            //gameManagerMaster.InventoryUIToggleEvent += TogglePlayerController;
+        }
+
+        void Start()
+        {
+            gameManagerMaster = GetComponent<GameManager_Master>();
+            Invoke("SetInitialReferences",0.1f);
             gameManagerMaster.MenuToggleEvent += TogglePlayerController;
             gameManagerMaster.InventoryUIToggleEvent += TogglePlayerController;
         }
@@ -27,16 +35,23 @@ namespace S3
 
         void SetInitialReferences()
         {
-            gameManagerMaster = GetComponent<GameManager_Master>();
             try {
-                gamemode = GetComponent<RTSGameMode>();
-                partymanager = GameObject.FindObjectOfType<PartyManager>();
+                gamemode = FindObjectOfType<RTSGameMode>();
+                partymanager = gamemode.GeneralInCommand;
                 }
             catch
             {
                 gamemode = null;
                 partymanager = null;
                 Debug.Log("No partymanager or gamemode in the scene!");
+            }
+            if(gamemode == null)
+            {
+                Debug.LogError("No gamemode");
+            }
+            if(partymanager == null)
+            {
+                Debug.LogError("No partymanager");
             }
         }
 

@@ -32,13 +32,14 @@ namespace S3
             if(other.CompareTag(GameManager_References._playerTag) && isTriggerPickup)
             {
                 TakeAmmo();
+                other.GetComponent<Player_Master>().CallEventPickedUpAmmo(ammoName, quantity);
+                Destroy(gameObject);
             }
         }
 
         void SetInitialReferences()
         {
             itemMaster = GetComponent<Item_Master>();
-            playerGo = GameManager_References._player;
 
             if (isTriggerPickup)
             {
@@ -56,8 +57,7 @@ namespace S3
 
         void TakeAmmo()
         {
-            playerGo.GetComponent<Player_Master>().CallEventPickedUpAmmo(ammoName, quantity);
-            Destroy(gameObject);
+
         }
     }
 }

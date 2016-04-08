@@ -20,7 +20,8 @@ namespace S3
         void SetInitialReferences()
         {
             gunMaster = GetComponent<Gun_Master>();
-            playerTransform = GameManager_References._player.transform;
+            playerTransform = this.transform;
+            //playerTransform = GameManager_References._player.transform;
             FindWeaponCamera(playerTransform);
             SetCameraOnDynamicCrosshairCanvas();
             SetPlaneDistanceOnDynamicCrosshairCanvas();
@@ -46,13 +47,16 @@ namespace S3
 
         void CapturePlayerSpeed()
         {
-            if(Time.time > nextCaptureTime)
-            {
-                nextCaptureTime = Time.time + captureInterval;
-                playerSpeed = (playerTransform.position - lastPosition).magnitude / captureInterval;
-                lastPosition = playerTransform.position;
-                gunMaster.CallEventSpeedCaptured(playerSpeed);
-            }
+            if (transform == null)
+                return;
+
+                if (Time.time > nextCaptureTime)
+                {
+                    nextCaptureTime = Time.time + captureInterval;
+                    playerSpeed = (playerTransform.position - lastPosition).magnitude / captureInterval;
+                    lastPosition = playerTransform.position;
+                    gunMaster.CallEventSpeedCaptured(playerSpeed);
+                }
         }
 
         void ApplySpeedToAnimation()
@@ -65,6 +69,9 @@ namespace S3
 
         void FindWeaponCamera(Transform transformToSearchThrough)
         {
+            if (transform == null)
+                return;
+
             if(transformToSearchThrough != null)
             {
                 if(transformToSearchThrough.name == weaponCameraName)
@@ -82,6 +89,9 @@ namespace S3
 
         void SetCameraOnDynamicCrosshairCanvas()
         {
+            if (transform == null)
+                return;
+
             if(canvasDynamicCrosshair != null && weaponCamera != null)
             {
                 canvasDynamicCrosshair.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
@@ -91,7 +101,10 @@ namespace S3
 
         void SetPlaneDistanceOnDynamicCrosshairCanvas()
         {
-            if(canvasDynamicCrosshair != null)
+            if (transform == null)
+                return;
+
+            if (canvasDynamicCrosshair != null)
             {
                 canvasDynamicCrosshair.GetComponent<Canvas>().planeDistance = 1;
             }

@@ -52,9 +52,7 @@ namespace RTSPrototype
         //TArray<TSubclassOf<class ARTSSpectator>> Spectators;
         public AllyMember FAllySpawnGObject;
         public AllyMember FEnemySpawnGObject;
-        [HideInInspector]
         public List<PartyManager> GeneralMembers = new List<PartyManager>();
-        [HideInInspector]
         public PartyManager GeneralInCommand;
         [HideInInspector]
         public int TargetKillCount = 0;
@@ -152,8 +150,7 @@ namespace RTSPrototype
         //GameModeSetupFunctions
         public PartyManager FindGenerals(bool pendingLeave, PartyManager generalLeaving){
             GeneralMembers.Clear();
-            PartyManager[] PMembers = GameObject.FindObjectsOfType<PartyManager>();
-            foreach(var PMember in PMembers)
+            foreach(var PMember in GameObject.FindObjectsOfType<PartyManager>())
             {
                 if (pendingLeave)
                 {
@@ -166,21 +163,19 @@ namespace RTSPrototype
                 {
                     GeneralMembers.Add(PMember);
                 }
-
-                UpdateGeneralStatuses();
-
-                if(GeneralMembers.Count <= 0)
-                {
-                    Debug.LogWarning("No partyMembers in Scene!");
-                    return null;
-                }
-                else
-                {
-                    PartyManager FirstGeneralFound = GeneralMembers[0];
-                    return FirstGeneralFound;
-                }
             }
-            return null;
+
+            UpdateGeneralStatuses();
+
+            if (GeneralMembers.Count <= 0)
+            {
+                Debug.LogWarning("No partyMembers in Scene!");
+                return null;
+            }
+            else
+            {
+                return GeneralMembers[0];
+            }
         }
         public void SetGeneralInCommand(PartyManager setToCommand)
         {

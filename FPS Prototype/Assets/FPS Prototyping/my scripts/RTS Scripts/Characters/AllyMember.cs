@@ -20,9 +20,11 @@ namespace RTSPrototype
         public Camera WeaponCamera;
         [HideInInspector]
         public Camera FPCamera;
+        [HideInInspector]
         public Player_Master playerMaster;
+        [HideInInspector]
         public Player_Inventory pInventory;
-        public ParticleSystem DeathSparks;
+        public GameObject DeathSparks;
         public AudioClip DeathSound;
         public List<SwitchAllyComponents> NonPlayerCompSwitches;
         public List<SwitchAllyComponents> PlayerCompSwitches;
@@ -227,6 +229,7 @@ namespace RTSPrototype
         protected virtual void OnEnable()
         {
             SetInitialReferences();
+            ResetAllyStats();
             playerMaster.EventAllyMemberDeath += AllyOnDeath;
         }
 
@@ -300,11 +303,58 @@ namespace RTSPrototype
 
         protected void AllyOnDeath(AllyMember pendingDeath, AllyMember _instigator)
         {
-            Debug.Log("I am dead!");
             //handle visual cue for death scenario
-            
+            if(DeathSparks != null && DeathSound != null)
+            {
+                //Spawn death sparks and sound
+                Instantiate(DeathSparks, transform.position, Quaternion.identity);
+                AudioSource.PlayClipAtPoint(DeathSound, transform.position,0.5f);
+            }
             //if gamemode, find allies and exclude this ally
-
+            if(gamemode != null)
+            {
+                foreach (var general in gamemode.GeneralMembers)
+                {
+                    if(general.GeneralCommander == GeneralCommander)
+                    {
+                        AllyMember firstAlly = general.FindPartyMembers(true, this);
+                        if(firstAlly != null)
+                        {
+                            general.SetAllyInCommand(firstAlly);
+                        }
+                        else
+                        {
+                            //Call Game Over Event
+                            //gamemode.CallGameOverEvent(generalCommander)
+                        }
+                        //Found General Commander, no more searching
+                        break;
+                    }
+                }
+                //Add to death count
+                Deaths += 1;
+                //Check rewards for instigator
+                if(_instigator != null)
+                {
+                    //Killed enemy, give reward
+                    if (IsEnemyFor(_instigator))
+                    {
+                        _instigator.Points += gamemode.GetPendingReward(_instigator, RTSGameMode.ERTSRewardTypes.Reward_Kill);
+                        _instigator.Kills += 1;
+                    }
+                    else
+                    {
+                        //Friendly Kill, give punishment
+                        _instigator.Points += gamemode.GetPendingPunishment(_instigator, RTSGameMode.ERTSPunishmentTypes.Punishment_KilledAnAlly);
+                    }
+                    //Handle targetting for enemy
+                    //enemyAlly->isTargetingEnemy = false;
+                }
+                //Update GameModeStats in the end
+                gamemode.UpdateGameModeStats();
+            }
+            //Handle actor being destroyed
+            Destroy(this.gameObject);
         }
 
         public RaycastHit PerformRaycastHit(Vector3 WorldLocation, Vector3 WorldDirection)
@@ -338,24 +388,25 @@ namespace RTSPrototype
 
         public void ResetAllyStats()
         {
-           
+            _Kills = 0;
+            _Points = 0;
+            _Deaths = 0;
+
         }
 
         public bool isGunLowOnAmmo(Gun_Master gun)
         {
+            if (gun == null)
+                return false;
+
             try
             {
-                string gName = gun.GetComponent<Gun_Ammo>().ammoName;
-                foreach(var ammoTypes in GetComponent<Player_AmmoBox>().typesOfAmmunition)
-                {
-                    if(ammoTypes.ammoName == gName)
-                    {
-                        if(ammoTypes.ammoCurrentCarried / ammoTypes.ammoMaxQuantity < lowAmmoThreshold)
-                        {
-                            return true;
-                        }
-                    }
-                }
+                var ammoType = GetAmmoTypeFromGunMaster(gun);
+                int _currentAmmo = ammoType.ammoCurrentCarried;
+                int _maxAmmo = ammoType.ammoMaxQuantity;
+
+                if ((_currentAmmo / _maxAmmo) < (lowAmmoThreshold * 0.01))
+                    return true;
             }
             catch
             {
@@ -368,9 +419,12 @@ namespace RTSPrototype
         {
             try
             {
-                foreach(var typeOfAmmo in GetComponent<Player_AmmoBox>().typesOfAmmunition)
+                if (gun == null)
+                    return null;
+
+                    foreach (var typeOfAmmo in GetComponent<Player_AmmoBox>().typesOfAmmunition)
                 {
-                    if(typeOfAmmo.ammoName == gun.GetComponent<Gun_Ammo>().ammoName)
+                    if (typeOfAmmo.ammoName == gun.GetComponent<Gun_Ammo>().ammoName)
                     {
                         return typeOfAmmo;
                     }
