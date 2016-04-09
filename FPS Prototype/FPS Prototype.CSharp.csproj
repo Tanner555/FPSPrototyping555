@@ -138,7 +138,9 @@
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Player Scripts\Player_Health.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Player Scripts\Player_Inventory.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\RTS Scripts\AI\ActionTask_FindPointNearEnemy.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\RTS Scripts\AI\ConditionTask_FindNearestWeaponSucceeds.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\RTS Scripts\AI\ConditionTask_VectorDistancesLessThanKey.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\RTS Scripts\AI\GrabGunAttemptSucceeds.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\RTS Scripts\Characters\AllyAIController.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\RTS Scripts\Characters\AllyAnimations.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\RTS Scripts\Characters\AllyInputCenter.cs" />

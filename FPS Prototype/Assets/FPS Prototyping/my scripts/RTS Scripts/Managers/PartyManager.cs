@@ -25,6 +25,7 @@ namespace RTSPrototype
         public List<AllyMember> PartyMembers = new List<AllyMember>();
         [HideInInspector]
         public bool isInOverview;
+        public bool isCurrentPlayerCommander { get { return GeneralCommander == RTSGameMode.ECommanders.Commander_01; } }
         private int PartyKills;
         private int PartyPoints;
         private int PartyDeaths;
@@ -62,7 +63,7 @@ namespace RTSPrototype
         // Update is called once per frame
         void Update()
         {
-            PartyInputSetup();
+            
         }
 
         public AllyMember FindPartyMembers(bool pendingAllyLeave, AllyMember allyToLeave)
@@ -226,18 +227,22 @@ namespace RTSPrototype
             return 0;
         }
 
+        public bool AllyIsCurrentPlayer(AllyMember _ally)
+        {
+            return isCurrentPlayerCommander && _ally == AllyInCommand;
+        }
+
         public void SetPartyComponents()
         {
-            //Commander is the current player's Commander
-            bool isCurrentPlayerCommander = this.GeneralCommander == RTSGameMode.ECommanders.Commander_01;
             foreach(var ally in PartyMembers)
             {
-                if(ally != AllyInCommand || !isCurrentPlayerCommander)
+                if(!AllyIsCurrentPlayer(ally))
                 {
                     foreach (var compSwitch in ally.NonPlayerCompSwitches)
                     {
                             compSwitch.MyComponent.enabled = compSwitch.ShouldEnable;
                     }
+                    ally.ThirdPersonGObject.SetActive(true);
                     //Item_Master itemMaster = ally.transform.GetComponentInChildren<Item_Master>();
                     //if(itemMaster != null)
                     //{
@@ -253,6 +258,7 @@ namespace RTSPrototype
                             compSwitch.MyComponent.enabled = compSwitch.ShouldEnable;
                         }
                     }
+                    ally.ThirdPersonGObject.SetActive(false);
                     //Item_Master itemMaster = ally.transform.GetComponentInChildren<Item_Master>();
                     //if (itemMaster != null)
                     //{
@@ -269,18 +275,6 @@ namespace RTSPrototype
             if (AllyInCommand)
             {
                 AllyInCommand.FPController.enabled = true;
-            }
-        }
-
-        private void PartyInputSetup()
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                PossessAllySubtract();
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                PossessAllyAdd();
             }
         }
 

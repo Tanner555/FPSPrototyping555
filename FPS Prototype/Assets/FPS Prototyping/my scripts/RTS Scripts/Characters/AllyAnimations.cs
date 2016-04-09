@@ -7,8 +7,10 @@ namespace RTSPrototype
 {
     public class AllyAnimations : MonoBehaviour
     {
+        public Transform ThirdPersonModel;
         private FirstPersonController FPSController;
         private Animator anim;
+        private AllyMember _ally;
 
         //Capture Speed Vars
         private float nextCaptureTime;
@@ -21,7 +23,7 @@ namespace RTSPrototype
 
         void OnEnable()
         {
-            SetInitialReferences();
+            Invoke("SetInitialReferences", 0.1f);
             EventSwitchCompOnCommandSwitch += SwitchCompsOnCommandSwitch;
         }
 
@@ -51,10 +53,14 @@ namespace RTSPrototype
 
         void ApplySpeedToAnimation()
         {
-            if (anim != null)
+            if (anim != null && anim.enabled == true)
             {
+                //Much more expensive, but may be more effective
+                if (_ally != null && !_ally.PartyManager.AllyIsCurrentPlayer(_ally)) { 
                 anim.SetFloat("Speed", playerSpeed);
+                }
             }
+
         }
 
         void CapturePlayerSpeed()
@@ -73,11 +79,23 @@ namespace RTSPrototype
 
         void SetInitialReferences()
         {
-            FPSController = GetComponent<FirstPersonController>();
-            anim = GetComponentInChildren<Animator>();
-            if(anim == null)
+            try {
+                _ally = GetComponent<AllyMember>();
+                if (_ally != null && !_ally.PartyManager.AllyIsCurrentPlayer(_ally))
+                {
+                    FPSController = GetComponent<FirstPersonController>();
+                    if (ThirdPersonModel != null)
+                        anim = ThirdPersonModel.GetComponent<Animator>();
+
+                    if (anim == null)
+                    {
+                        Debug.Log("Animator could not be found!");
+                    }
+                }
+            }
+            catch
             {
-                Debug.Log("Animator could not be found!");
+                Debug.LogError("Party Manager could not be set!");
             }
         }
 

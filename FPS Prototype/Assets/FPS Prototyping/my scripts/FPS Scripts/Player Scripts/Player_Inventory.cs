@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using RTSPrototype;
 
 namespace S3
 {
@@ -12,6 +13,7 @@ namespace S3
         public GameObject uiButton;
 
         private Player_Master playerMaster;
+        private AllyMember _ally;
         private GameManager_ToggleInventoryUI inventoryUIScript;
         private float timeToPlaceInHands = 0.1f;
         public Transform CurrentHeldItem { get { return currentlyHeldItem; } }
@@ -44,6 +46,11 @@ namespace S3
         {
             inventoryUIScript = GameObject.Find("GameManager").GetComponent<GameManager_ToggleInventoryUI>();
             playerMaster = GetComponent<Player_Master>();
+            _ally = GetComponent<AllyMember>();
+            if(_ally == null || _ally.PartyManager == null)
+            {
+                Debug.Log("Ally or Partymanager could not be set!");
+            }
         }
   
         void UpdateInventoryListAndUI()
@@ -59,19 +66,23 @@ namespace S3
                 if (child.CompareTag("Item"))
                 {
                     listInventory.Add(child);
-                    GameObject go = Instantiate(uiButton) as GameObject;
-                     buttonText = child.name;
-                    go.GetComponentInChildren<Text>().text = buttonText;
-                    int index = counter;
-                    go.GetComponent<Button>().onClick.AddListener(delegate{ ActivateInventoryItem(index); });
-                    go.GetComponent<Button>().onClick.AddListener(inventoryUIScript.ToggleInventoryUI);
-                    go.transform.SetParent(inventoryUIParent, false);
-                    //for temp use, set active components
-                    go.GetComponent<Image>().enabled = true;
-                    go.GetComponent<Button>().enabled = true;
-                    go.GetComponentInChildren<Text>().enabled = true;
-                     //end
-                     counter++;
+                    //UI only updates if ally is current player
+                    if (_ally.PartyManager.AllyIsCurrentPlayer(_ally))
+                    {
+                        GameObject go = Instantiate(uiButton) as GameObject;
+                        buttonText = child.name;
+                        go.GetComponentInChildren<Text>().text = buttonText;
+                        int index = counter;
+                        go.GetComponent<Button>().onClick.AddListener(delegate { ActivateInventoryItem(index); });
+                        go.GetComponent<Button>().onClick.AddListener(inventoryUIScript.ToggleInventoryUI);
+                        go.transform.SetParent(inventoryUIParent, false);
+                        //for temp use, set active components
+                        go.GetComponent<Image>().enabled = true;
+                        go.GetComponent<Button>().enabled = true;
+                        go.GetComponentInChildren<Text>().enabled = true;
+                        //end
+                        counter++;
+                    }
                 }
             }
         }
@@ -91,9 +102,12 @@ namespace S3
 
         void ClearInventoryUI()
         {
-            foreach(Transform child in inventoryUIParent)
+            if (_ally.PartyManager.AllyIsCurrentPlayer(_ally))
             {
-                Destroy(child.gameObject);
+                foreach (Transform child in inventoryUIParent)
+                {
+                    Destroy(child.gameObject);
+                }
             }
         }
 

@@ -14,6 +14,8 @@ namespace S3
         public delegate void PickupActionEventHandler(Transform item);
         public event PickupActionEventHandler EventPickupAction;
 
+        //TODO: Fix Item Master References!
+
         void OnEnable()
         {
             
@@ -30,17 +32,25 @@ namespace S3
             {
                 EventObjectThrow();
             }
-            playerMaster.CallEventHandsEmpty();
-            playerMaster.CallEventInventoryChanged();
+            if (playerMaster != null)
+            {
+                playerMaster.CallEventHandsEmpty();
+                playerMaster.CallEventInventoryChanged();
+            }
+            playerMaster = null;
         }
 
         public void CallEventObjectPickup()
         {
-            if(EventObjectPickup != null)
+            if (EventObjectPickup != null)
             {
                 EventObjectPickup();
             }
-            playerMaster.CallEventInventoryChanged();
+            if (transform.root.GetComponent<Player_Master>())
+            {
+                playerMaster = transform.root.GetComponent<Player_Master>();
+                playerMaster.CallEventInventoryChanged();
+            }
         }
 
         public void CallEventPickupAction(Transform item)
@@ -53,9 +63,17 @@ namespace S3
 
         void SetInitialReferences()
         {
-            if(GameManager_References._player != null)
+            //if(GameManager_References._player != null)
+            //{
+            //    playerMaster = GameManager_References._player.GetComponent<Player_Master>();
+            //}
+            if (transform.root.GetComponent<Player_Master>())
             {
-                playerMaster = GameManager_References._player.GetComponent<Player_Master>();
+                playerMaster = transform.root.GetComponent<Player_Master>();
+            }
+            else
+            {
+                playerMaster = null;
             }
         }
     }

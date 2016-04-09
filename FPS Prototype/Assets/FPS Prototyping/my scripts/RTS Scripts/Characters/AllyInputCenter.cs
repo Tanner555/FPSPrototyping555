@@ -29,6 +29,7 @@ namespace RTSPrototype
             StandardInputSetup();
         }
 
+        #region StandardInput Setup
         void StandardInputSetup()
         {
             //Down Commands
@@ -72,6 +73,7 @@ namespace RTSPrototype
               //  AttemptGunActivateBurstFire(false);
             }
         }
+        #endregion
 
         #region ButtonDownCommands
         void AttemptGunReload(bool buttonDown)

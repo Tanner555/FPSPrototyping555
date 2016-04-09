@@ -170,6 +170,9 @@ namespace RTSPrototype
                 return guns;
             }
         }
+
+        public bool HasGunInInventory { get { return getAllGuns.Count > 0; } }
+        
         //Faction Properties
         public PartyManager PartyManager
         {
