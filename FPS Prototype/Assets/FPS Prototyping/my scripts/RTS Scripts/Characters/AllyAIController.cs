@@ -203,6 +203,7 @@ namespace RTSPrototype
             {
                 if(_hit.transform == InEnemyActor.transform)
                 {
+                    //Debug.Log("LOS with enemy: " + _hit.transform.name);
                     bHasLos = true;
                 }else if(bAnyEnemy == true)
                 {
@@ -237,6 +238,7 @@ namespace RTSPrototype
             {
                 RaycastHit _hit;
                 if(Physics.Linecast(head.position, Enemy.transform.position, out _hit, sightLayer)){
+                    if(_hit.transform == Enemy.transform)
                     bCanShoot = true;
                 }
             }

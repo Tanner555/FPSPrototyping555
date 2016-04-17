@@ -35,6 +35,10 @@ namespace RTSPrototype
         {
             get; set;
         }
+        public bool isCurrentPlayer
+        {
+            get { return PartyManager ? PartyManager.AllyIsCurrentPlayer(this) : false; }
+        }
         [HideInInspector]
         public AllyMember targetedEnemy { get; set; }
 
@@ -172,6 +176,23 @@ namespace RTSPrototype
         }
 
         public bool HasGunInInventory { get { return getAllGuns.Count > 0; } }
+
+        public bool HasGunWithAmmo
+        {
+            get
+            {
+                foreach(var _gun in getAllGuns)
+                {
+                    if(_gun.GetComponent<Gun_Ammo>().currentAmmo > 0)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        public bool EquipGunSucceedsProperty { get { return EquipGunWMostAmmoSucceeds(); } }
         
         //Faction Properties
         public PartyManager PartyManager
@@ -477,6 +498,18 @@ namespace RTSPrototype
                 Debug.LogError("Find Gun request did not meet all required specifications.");
             }
             return null;
+        }
+
+        bool EquipGunWMostAmmoSucceeds()
+        {
+            var _gunWAmmo = FindGunWMostAmmo();
+            if(_gunWAmmo != null)
+            {
+                int _gunIndex = pInventory.MyInventory.IndexOf(_gunWAmmo.transform);
+                pInventory.ActivateInventoryItem(_gunIndex);
+                return true;
+            }
+            return false;
         }
 
         [System.Serializable]

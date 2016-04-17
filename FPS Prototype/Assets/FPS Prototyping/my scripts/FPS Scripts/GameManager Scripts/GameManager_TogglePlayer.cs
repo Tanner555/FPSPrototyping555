@@ -25,12 +25,14 @@ namespace S3
             Invoke("SetInitialReferences",0.1f);
             gameManagerMaster.MenuToggleEvent += TogglePlayerController;
             gameManagerMaster.InventoryUIToggleEvent += TogglePlayerController;
+            gameManagerMaster.BehaviorUIToggleEvent += TogglePlayerController;
         }
 
         void OnDisable()
         {
             gameManagerMaster.MenuToggleEvent -= TogglePlayerController;
             gameManagerMaster.InventoryUIToggleEvent -= TogglePlayerController;
+            gameManagerMaster.BehaviorUIToggleEvent -= TogglePlayerController;
         }
 
         void SetInitialReferences()

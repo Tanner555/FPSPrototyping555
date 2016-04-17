@@ -2,21 +2,27 @@
 using System.Collections;
 using S3;
 using UnityStandardAssets.Characters.FirstPerson;
+using System;
 
 namespace RTSPrototype
 {
     public class AllyAnimations : MonoBehaviour
     {
         public Transform ThirdPersonModel;
+        public Transform FindLookTransform;
         private FirstPersonController FPSController;
         private Animator anim;
         private AllyMember _ally;
 
         //Capture Speed Vars
-        private float nextCaptureTime;
+        private float nextCaptureTime = 0.2f;
         private float captureInterval = 0.1f;
+        private float nextApplyTime = 0.0f;
+        private float applyInterval = 0.2f;
         private float playerSpeed = 0.0f;
+        private float playerTurning = 0.0f;
         private Vector3 lastPosition = new Vector3(0, 0, 0);
+        private Vector3 lastRotation = new Vector3(0,0,0);
 
         public delegate void GeneralAnimHandler();
         public event GeneralAnimHandler EventSwitchCompOnCommandSwitch;
@@ -41,38 +47,58 @@ namespace RTSPrototype
         // Update is called once per frame
         void Update()
         {
-            CapturePlayerSpeed();
-            ApplySpeedToAnimation();
+            CapturePlayerSpeedAndTurn();
+            ApplySpeedAndTurnToAnimation();
             
         }
 
         void SwitchCompsOnCommandSwitch()
         {
-
+            
         }
 
-        void ApplySpeedToAnimation()
+       void ApplySpeedAndTurnToAnimation()
         {
-            if (anim != null && anim.enabled == true)
+            if (Time.time > nextApplyTime)
             {
-                //Much more expensive, but may be more effective
-                if (_ally != null && !_ally.PartyManager.AllyIsCurrentPlayer(_ally)) { 
-                anim.SetFloat("Speed", playerSpeed);
+                nextApplyTime = Time.time + applyInterval;
+                if (anim != null && anim.enabled == true)
+                {
+                    //Much more expensive, but may be more effective
+                    if (_ally != null && !_ally.PartyManager.AllyIsCurrentPlayer(_ally))
+                    {
+                        anim.SetFloat("Speed", playerSpeed);
+                        anim.SetFloat("Turning", playerTurning);
+                    }
                 }
             }
 
         }
 
-        void CapturePlayerSpeed()
+
+        void CapturePlayerSpeedAndTurn()
         {
             if (transform == null)
                 return;
 
             if (Time.time > nextCaptureTime)
             {
+                //Capture Speed
                 nextCaptureTime = Time.time + captureInterval;
-                playerSpeed = (transform.position - lastPosition).magnitude / captureInterval;
+                //Find Look will look at the current position from the last given pos.
+                if (FindLookTransform != null)
+                {
+                    //Capture Turning
+                    FindLookTransform.position = lastPosition;
+                    FindLookTransform.LookAt(transform.position);
+                    playerTurning = FindLookTransform.rotation.eulerAngles.y;
+                }
+                playerSpeed = Mathf.Clamp((transform.position - lastPosition).magnitude / captureInterval, 0, 10);
                 lastPosition = transform.position;
+                //Capture Turning
+                //playerTurning = Mathf.Clamp((transform.rotation.eulerAngles.y - lastRotation.y) / captureInterval, -1, 1);
+                //lastRotation = transform.rotation.eulerAngles;
+
                 //gunMaster.CallEventSpeedCaptured(playerSpeed);
             }
         }

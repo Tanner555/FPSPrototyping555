@@ -10,6 +10,18 @@ namespace S3
         public GameObject inventoryUI;
         public string toggleInventoryButton;
         private GameManager_Master gameManagerMaster;
+        //For behaviors
+        public string toggleBehaviorButton;
+        public bool BehaviorUIIsActive
+        {
+            get {
+                return gameManagerMaster != null ? gameManagerMaster.isBehaviorUIOn : false;
+                }
+            set {
+                if(gameManagerMaster != null)
+                gameManagerMaster.isBehaviorUIOn = value;
+                }
+        }
 
         // Use this for initialization
         void Start()
@@ -31,13 +43,18 @@ namespace S3
                 Debug.LogWarning("Please type in the name of the button used to toggle the inventory");
                 this.enabled = false;
             }
+            BehaviorUIIsActive = false;
         }
 
         void CheckForInventoryUIToggleRequest()
         {
-            if(Input.GetButtonUp(toggleInventoryButton) && !gameManagerMaster.isMenuOn && !gameManagerMaster.isGameOver && hasInventory)
+            if(Input.GetButtonUp(toggleInventoryButton) && !gameManagerMaster.isMenuOn && !gameManagerMaster.isGameOver && hasInventory && !BehaviorUIIsActive)
             {
                 ToggleInventoryUI();
+            }
+            if(Input.GetButtonUp(toggleBehaviorButton) && !gameManagerMaster.isMenuOn && !gameManagerMaster.isGameOver && !gameManagerMaster.isInventoryUIOn)
+            {
+                ToggleBehaviorUI();
             }
         }
 
@@ -49,6 +66,12 @@ namespace S3
                 gameManagerMaster.isInventoryUIOn = !gameManagerMaster.isInventoryUIOn;
                 gameManagerMaster.CallEventInventoryUIToggle();
             }
+        }
+
+        void ToggleBehaviorUI()
+        {
+            BehaviorUIIsActive = !BehaviorUIIsActive;
+            gameManagerMaster.CallEventBehaviorUIToggle();
         }
             
     }

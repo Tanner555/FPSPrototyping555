@@ -137,6 +137,13 @@
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Player Scripts\Player_DetectItem.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Player Scripts\Player_Health.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Player Scripts\Player_Inventory.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\Node Scripts\BaseInputNode.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\Node Scripts\BaseNode.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\Node Scripts\CalcNode.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\Node Scripts\ComparisonNode.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\Node Scripts\InputNode.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\Node Scripts\NodeEditor.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\Node Scripts\OutputNode.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\RTS Scripts\AI\ActionTask_FindPointNearEnemy.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\RTS Scripts\AI\ConditionTask_FindNearestWeaponSucceeds.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\RTS Scripts\AI\ConditionTask_VectorDistancesLessThanKey.cs" />
@@ -149,6 +156,7 @@
     <Compile Include="Assets\FPS Prototyping\my scripts\RTS Scripts\Managers\GameModes\TeamDeathMatch.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\RTS Scripts\Managers\PartyInputCenter.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\RTS Scripts\Managers\PartyManager.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\RTS Scripts\UI\BehaviorUIManager.cs" />
     <Compile Include="Assets\NodeCanvas\Framework\Design\PartialEditor\BlackboardEditor.cs" />
     <Compile Include="Assets\NodeCanvas\Framework\Design\PartialEditor\EDITOR_Connection.cs" />
     <Compile Include="Assets\NodeCanvas\Framework\Design\PartialEditor\EDITOR_Graph.cs" />

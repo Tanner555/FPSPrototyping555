@@ -29,6 +29,18 @@ namespace RTSPrototype
         private int PartyKills;
         private int PartyPoints;
         private int PartyDeaths;
+        public AllyMember FirstNonPlayerAlly
+        {
+            get
+            {
+                foreach (var _ally in PartyMembers)
+                {
+                    if (!AllyIsCurrentPlayer(_ally))
+                        return _ally;
+                }
+                return null;
+            }
+        }
 
         protected virtual void OnEnable()
         {
@@ -240,6 +252,7 @@ namespace RTSPrototype
                 {
                     foreach (var compSwitch in ally.NonPlayerCompSwitches)
                     {
+                        if (compSwitch.MyComponent != ally.FPController)
                             compSwitch.MyComponent.enabled = compSwitch.ShouldEnable;
                     }
                     ally.ThirdPersonGObject.SetActive(true);
@@ -272,9 +285,10 @@ namespace RTSPrototype
 
         private void SetCommandDelayComponents()
         {
-            if (AllyInCommand)
+            foreach (var _ally in PartyMembers)
             {
-                AllyInCommand.FPController.enabled = true;
+                _ally.FPController.enabled = AllyIsCurrentPlayer(_ally);
+                
             }
         }
 

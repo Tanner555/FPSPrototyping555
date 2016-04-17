@@ -11,9 +11,11 @@ namespace S3
         public event GameManagerEventHandler RestartLevelEvent;
         public event GameManagerEventHandler GoToMenuSceneEvent;
         public event GameManagerEventHandler GameOverEvent;
+        public event GameManagerEventHandler BehaviorUIToggleEvent;
 
         public bool isGameOver;
         public bool isInventoryUIOn;
+        public bool isBehaviorUIOn;
         public bool isMenuOn;
 
         public void CallEventMenuToggle()
@@ -53,6 +55,14 @@ namespace S3
             if (GameOverEvent != null)
             {
                 GameOverEvent();
+            }
+        }
+
+        public void CallEventBehaviorUIToggle()
+        {
+            if(BehaviorUIToggleEvent != null)
+            {
+                BehaviorUIToggleEvent();
             }
         }
     }

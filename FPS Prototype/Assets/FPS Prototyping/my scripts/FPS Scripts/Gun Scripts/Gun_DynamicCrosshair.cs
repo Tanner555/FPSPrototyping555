@@ -94,6 +94,7 @@ namespace S3
 
             if(canvasDynamicCrosshair != null && weaponCamera != null)
             {
+                //canvasDynamicCrosshair.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
                 canvasDynamicCrosshair.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
                 canvasDynamicCrosshair.GetComponent<Canvas>().worldCamera = weaponCamera.GetComponent<Camera>();
             }
