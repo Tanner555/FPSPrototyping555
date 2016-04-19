@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using IGBPI;
 
 namespace S3
 {
@@ -10,16 +11,13 @@ namespace S3
         public GameObject inventoryUI;
         public string toggleInventoryButton;
         private GameManager_Master gameManagerMaster;
+        private IGBPI_Manager_Master behaviorMaster;
         //For behaviors
         public string toggleBehaviorButton;
         public bool BehaviorUIIsActive
         {
             get {
-                return gameManagerMaster != null ? gameManagerMaster.isBehaviorUIOn : false;
-                }
-            set {
-                if(gameManagerMaster != null)
-                gameManagerMaster.isBehaviorUIOn = value;
+                return gameManagerMaster != null ? behaviorMaster.isBehaviorUIOn : false;
                 }
         }
 
@@ -38,12 +36,12 @@ namespace S3
         void SetInitialReferences()
         {
             gameManagerMaster = GetComponent<GameManager_Master>();
-            if(toggleInventoryButton == "")
+            behaviorMaster = GameObject.FindObjectOfType<IGBPI_Manager_Master>();
+            if (toggleInventoryButton == "")
             {
                 Debug.LogWarning("Please type in the name of the button used to toggle the inventory");
                 this.enabled = false;
             }
-            BehaviorUIIsActive = false;
         }
 
         void CheckForInventoryUIToggleRequest()
@@ -70,8 +68,10 @@ namespace S3
 
         void ToggleBehaviorUI()
         {
-            BehaviorUIIsActive = !BehaviorUIIsActive;
-            gameManagerMaster.CallEventBehaviorUIToggle();
+            if(behaviorMaster != null)
+            {
+                behaviorMaster.CallEventToggleBehaviorUI();
+            }
         }
             
     }

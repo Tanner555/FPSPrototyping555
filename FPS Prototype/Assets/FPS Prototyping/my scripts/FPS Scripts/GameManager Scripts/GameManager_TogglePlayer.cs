@@ -2,6 +2,7 @@
 using System.Collections;
 using RTSPrototype;
 using UnityStandardAssets.Characters.FirstPerson;
+using IGBPI;
 
 namespace S3
 {
@@ -9,9 +10,10 @@ namespace S3
     {
         public FirstPersonController playerController;
         private GameManager_Master gameManagerMaster;
+        private IGBPI_Manager_Master behaviorMaster;
         private RTSGameMode gamemode;
         private PartyManager partymanager;
-       
+
         void OnEnable()
         {
             //SetInitialReferences();
@@ -21,18 +23,19 @@ namespace S3
 
         void Start()
         {
-            gameManagerMaster = GetComponent<GameManager_Master>();
-            Invoke("SetInitialReferences",0.1f);
+            Invoke("SetInitialReferences", 0.1f);
+             gameManagerMaster = GetComponent<GameManager_Master>();
+            behaviorMaster = FindObjectOfType<IGBPI_Manager_Master>();
             gameManagerMaster.MenuToggleEvent += TogglePlayerController;
             gameManagerMaster.InventoryUIToggleEvent += TogglePlayerController;
-            gameManagerMaster.BehaviorUIToggleEvent += TogglePlayerController;
+            behaviorMaster.EventToggleBehaviorUI += TogglePlayerController;
         }
 
         void OnDisable()
         {
             gameManagerMaster.MenuToggleEvent -= TogglePlayerController;
             gameManagerMaster.InventoryUIToggleEvent -= TogglePlayerController;
-            gameManagerMaster.BehaviorUIToggleEvent -= TogglePlayerController;
+            behaviorMaster.EventToggleBehaviorUI -= TogglePlayerController;
         }
 
         void SetInitialReferences()
@@ -67,6 +70,22 @@ namespace S3
                     fpsCon.enabled = !fpsCon.enabled;
                 }
             }else if (playerController != null)
+            {
+                playerController.enabled = !playerController.enabled;
+            }
+        }
+
+        void TogglePlayerController(bool _set)
+        {
+            if (partymanager != null)
+            {
+                if (partymanager.AllyInCommand != null)
+                {
+                    var fpsCon = partymanager.AllyInCommand.transform.GetComponent<FirstPersonController>();
+                    fpsCon.enabled = !fpsCon.enabled;
+                }
+            }
+            else if (playerController != null)
             {
                 playerController.enabled = !playerController.enabled;
             }

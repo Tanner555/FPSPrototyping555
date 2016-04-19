@@ -149,9 +149,34 @@ namespace NodeBehaviorPrototyping
 
         public override BaseInputNode ClickedOnInput(Vector2 pos)
         {
-            //TEMP!! Vid 1: 53.30
-            return base.ClickedOnInput(pos);
-            
+            BaseInputNode retVal = null;
+
+            pos.x -= windowRect.x;
+            pos.y -= windowRect.y;
+
+            if (input1Rect.Contains(pos))
+            {
+                retVal = input1;
+                input1 = null;
+            }else if (input2Rect.Contains(pos))
+            {
+                retVal = input2;
+                input2 = null;
+            }
+
+            return retVal;
+        }
+
+        public override void NodeDeleted(BaseNode node)
+        {
+            if (node.Equals(input1))
+            {
+                input1 = null;
+            }
+            if (node.Equals(input2))
+            {
+                input2 = null;
+            }
         }
 
     }
