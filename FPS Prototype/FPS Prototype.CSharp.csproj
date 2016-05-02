@@ -72,9 +72,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Attribute Console\Examples\ExampleConsoleScript.cs" />
+    <Compile Include="Assets\Attribute Console\Scripts\AttributeConsoleGUI.cs" />
+    <Compile Include="Assets\Attribute Console\Scripts\AttributeConsoleHelper.cs" />
+    <Compile Include="Assets\Attribute Console\Scripts\AttributeConsoleManager.cs" />
+    <Compile Include="Assets\Attribute Console\Scripts\Attributes\ConsoleMethodAttribute.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Destructable Scripts\Destructable_CollisionDetection.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Destructable Scripts\Destructable_Degenerate.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Destructable Scripts\Destructable_Explode.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Destructable Scripts\Destructable_Health.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Destructable Scripts\Destructable_LowHealthEffect.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Destructable Scripts\Destructable_ParticleSpawn.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Destructable Scripts\Destructable_PlayerInventoryUpdate.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Destructable Scripts\Destructable_Sound.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Destructable Scripts\Destructable_TakeDamage.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\EnemyScripts\Enemy_Animation.cs" />
@@ -117,21 +126,30 @@
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Ammo.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Animator.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Colliders.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Drop.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Name.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Pickup.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Rigidbodies.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_SetLayer.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_SetPosition.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_SetRotation.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Sounds.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Tag.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Throw.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_Transparency.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\ItemScripts\Item_UI.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\Destructable_Master.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\Enemy_Master.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\GameManager_Master.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\Gun_Master.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\Item_Master.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\Melee_Master.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Master Scripts\Player_Master.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\MeleeScripts\Melee_Reset.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\MeleeScripts\Melee_Sound.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\MeleeScripts\Melee_StandardInput.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\MeleeScripts\Melee_Strike.cs" />
+    <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\MeleeScripts\Melee_Swing.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Player Scripts\Player_AmmoBox.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Player Scripts\Player_CanvasHurt.cs" />
     <Compile Include="Assets\FPS Prototyping\my scripts\FPS Scripts\Player Scripts\Player_DetectItem.cs" />

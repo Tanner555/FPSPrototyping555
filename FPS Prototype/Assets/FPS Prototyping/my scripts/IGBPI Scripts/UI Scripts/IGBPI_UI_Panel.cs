@@ -14,29 +14,29 @@ namespace IGBPI {
         //Conditional Dropdown Menus
         [SerializeField] //Bool, String, or GameObject
         private Dropdown comparisontype;
-        [SerializeField] //First Class to Compare
-        private Dropdown compare_class_01;
-        [SerializeField] //Second Class to Compare
-        private Dropdown compare_class_02;
-        [SerializeField]//First Class Attribute
-        private Dropdown class_01_attribute;
-        [SerializeField]//Second Class Attribute
-        private Dropdown class_02_attribute;
-        [SerializeField] //Greater, Less, or Equal
-        private Dropdown conditionaltype;
+        //[SerializeField] //First Class to Compare
+        //private Dropdown compare_class_01;
+        //[SerializeField] //Second Class to Compare
+        //private Dropdown compare_class_02;
+        //[SerializeField]//First Class Attribute
+        //private Dropdown class_01_attribute;
+        //[SerializeField]//Second Class Attribute
+        //private Dropdown class_02_attribute;
+        //[SerializeField] //Greater, Less, or Equal
+        //private Dropdown conditionaltype;
         //Action Dropdown Menus
-        [SerializeField] //ClassToCarryOutEvent
-        private Dropdown classtocarryoutevent;
+        //[SerializeField] //ClassToCarryOutEvent
+        //private Dropdown classtocarryoutevent;
         [SerializeField] //EventFromClassToExecute
         private Dropdown eventfromclasstoexecute;
         //Getters
         public Dropdown ComparisonType { get { return comparisontype; } }
-        public Dropdown Compare_Class_01 { get { return compare_class_01; } }
-        public Dropdown Compare_Class_02 { get { return compare_class_02; } }
-        public Dropdown Class_01_Attribute { get { return class_01_attribute; } }
-        public Dropdown Class_02_Attribute { get { return class_02_attribute; } }
-        public Dropdown ConditionalType { get { return conditionaltype; } }
-        public Dropdown ClassToCarryOutEvent { get { return classtocarryoutevent; } }
+        //public Dropdown Compare_Class_01 { get { return compare_class_01; } }
+        //public Dropdown Compare_Class_02 { get { return compare_class_02; } }
+        //public Dropdown Class_01_Attribute { get { return class_01_attribute; } }
+        //public Dropdown Class_02_Attribute { get { return class_02_attribute; } }
+        //public Dropdown ConditionalType { get { return conditionaltype; } }
+        //public Dropdown ClassToCarryOutEvent { get { return classtocarryoutevent; } }
         public Dropdown EventFromClassToExecute { get { return eventfromclasstoexecute; } }
         #endregion
         #region UIVariables
@@ -45,7 +45,7 @@ namespace IGBPI {
         {
             get
             {
-                return (comparisontype && compare_class_01 && compare_class_02 && class_01_attribute & class_02_attribute && conditionaltype && classtocarryoutevent && eventfromclasstoexecute);
+                return (comparisontype && /*compare_class_01 && compare_class_02 && class_01_attribute & class_02_attribute && conditionaltype && classtocarryoutevent &&*/ eventfromclasstoexecute);
             }
         }
 
@@ -116,9 +116,10 @@ namespace IGBPI {
             {
                 foreach (var _menu in Dropdown_Menus)
                 {
-                    _menu.ClearOptions();
+                    //_menu.ClearOptions();
                     _menu.onValueChanged.RemoveAllListeners();
                     _menu.onValueChanged.AddListener(delegate { OnMenuSelectionChange(_menu); });
+                    
                 }
             }
         }
@@ -148,12 +149,12 @@ namespace IGBPI {
             if (AllMenusAreValid)
             {
                 UI_Dropdown_Menus.Add(comparisontype);
-                UI_Dropdown_Menus.Add(compare_class_01);
-                UI_Dropdown_Menus.Add(compare_class_02);
-                UI_Dropdown_Menus.Add(class_01_attribute);
-                UI_Dropdown_Menus.Add(class_02_attribute);
-                UI_Dropdown_Menus.Add(conditionaltype);
-                UI_Dropdown_Menus.Add(classtocarryoutevent);
+                //UI_Dropdown_Menus.Add(compare_class_01);
+                //UI_Dropdown_Menus.Add(compare_class_02);
+                //UI_Dropdown_Menus.Add(class_01_attribute);
+                //UI_Dropdown_Menus.Add(class_02_attribute);
+                //UI_Dropdown_Menus.Add(conditionaltype);
+                //UI_Dropdown_Menus.Add(classtocarryoutevent);
                 UI_Dropdown_Menus.Add(eventfromclasstoexecute);
             }
             else

@@ -55,16 +55,16 @@ namespace IGBPI
 
         void ResetUIPanelMenu(UIPanelMenuInfo _info)
         {
-            foreach (var _menu in _info.myPanel.Dropdown_Menus)
-            {
-                _menu.interactable = false;
-            }
-            _info.myPanel.ComparisonType.interactable = true;
-            _info.myPanel.ComparisonType.AddOptions(ComparisionTypesStringList);
-            foreach (var _opt in _info.myPanel.ComparisonType.options)
-            {
-                Debug.Log(_opt.text);
-            }
+            //foreach (var _menu in _info.myPanel.Dropdown_Menus)
+            //{
+            //    _menu.interactable = false;
+            //}
+            //_info.myPanel.ComparisonType.interactable = true;
+            //_info.myPanel.ComparisonType.AddOptions(ComparisionTypesStringList);
+            //foreach (var _opt in _info.myPanel.ComparisonType.options)
+            //{
+            //    Debug.Log(_opt.text);
+            //}
         }
 
         void ResetAllUIPanelMenus()

@@ -12,6 +12,7 @@ namespace RTSPrototype
         public string attackButtonName;
         public string reloadButtonName;
         public string burstFireButtonName;
+        public string dropButtonName;
         private Player_DetectItem detectItem;
         private Player_Inventory inventory;
 
@@ -57,6 +58,12 @@ namespace RTSPrototype
             {
                 AttemptGunReload(true);
             }
+
+            if (Input.GetButtonDown(dropButtonName))
+            {
+                AttemptItemDrop();
+            }
+
             //Up Commands
             if (Input.GetButtonUp(attackButtonName))
             {
@@ -76,6 +83,14 @@ namespace RTSPrototype
         #endregion
 
         #region ButtonDownCommands
+        void AttemptItemDrop()
+        {
+            if (inventory.CurrentHeldItem && inventory.CurrentHeldItem.GetComponent<Item_Drop>())
+            {
+                inventory.CurrentHeldItem.GetComponent<Item_Drop>().TimeToDrop();
+            }
+        }
+
         void AttemptGunReload(bool buttonDown)
         {
             var input = GetGunInput();
