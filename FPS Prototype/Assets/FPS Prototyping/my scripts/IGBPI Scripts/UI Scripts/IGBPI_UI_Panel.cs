@@ -9,7 +9,7 @@ using RTSPrototype;
 using System;
 
 namespace IGBPI {
-    public class IGBPI_UI_Panel : MonoBehaviour, IPointerClickHandler {
+    public class IGBPI_UI_Panel : MonoBehaviour {
         #region MenuTypes
         //Conditional Dropdown Menus
         [SerializeField] //Bool, String, or GameObject
@@ -41,23 +41,23 @@ namespace IGBPI {
         #endregion
         #region UIVariables
 
-        public bool AllMenusAreValid
-        {
-            get
-            {
-                return (comparisontype && /*compare_class_01 && compare_class_02 && class_01_attribute & class_02_attribute && conditionaltype && classtocarryoutevent &&*/ eventfromclasstoexecute);
-            }
-        }
+        //public bool AllMenusAreValid
+        //{
+        //    get
+        //    {
+        //        return (comparisontype && /*compare_class_01 && compare_class_02 && class_01_attribute & class_02_attribute && conditionaltype && classtocarryoutevent &&*/ eventfromclasstoexecute);
+        //    }
+        //}
 
-        public bool IsUISelection
-        {
-            get
-            {
-                return behaviorUIManager ? behaviorUIManager.UIPanelSelection == this : false;
-            }
-        }
-        public List<Dropdown> Dropdown_Menus { get { return UI_Dropdown_Menus; } }
-        private List<Dropdown> UI_Dropdown_Menus;
+        //public bool IsUISelection
+        //{
+        //    get
+        //    {
+        //        return behaviorUIManager ? behaviorUIManager.UIPanelSelection == this : false;
+        //    }
+        //}
+        //public List<Dropdown> Dropdown_Menus { get { return UI_Dropdown_Menus; } }
+        //private List<Dropdown> UI_Dropdown_Menus;
         private IGBPI_UIHandler behaviorUIManager;
         private IGBPI_Manager_Master behaviorManagerMaster;
         private IGBPI_MenuSelectionHandler behaviorMenuManager;
@@ -67,22 +67,22 @@ namespace IGBPI {
         // Use this for initialization
         void OnEnable() {
             SetupInitialReferences();
-            behaviorManagerMaster.EventUIPanelSelectionChanged += ChangeUIPanelVisuals;
-            behaviorManagerMaster.EventResetAllPaneUIMenus += ResetUIMenus;
-            behaviorManagerMaster.EventResetPanelUIMenu += ResetUIMenusIfRequired;
+            //behaviorManagerMaster.EventUIPanelSelectionChanged += ChangeUIPanelVisuals;
+            //behaviorManagerMaster.EventResetAllPaneUIMenus += ResetUIMenus;
+            //behaviorManagerMaster.EventResetPanelUIMenu += ResetUIMenusIfRequired;
         }
 
         void OnDisable()
         {
-            behaviorManagerMaster.EventUIPanelSelectionChanged -= ChangeUIPanelVisuals;
-            behaviorManagerMaster.EventResetAllPaneUIMenus -= ResetUIMenus;
-            behaviorManagerMaster.EventResetPanelUIMenu -= ResetUIMenusIfRequired;
+            //behaviorManagerMaster.EventUIPanelSelectionChanged -= ChangeUIPanelVisuals;
+            //behaviorManagerMaster.EventResetAllPaneUIMenus -= ResetUIMenus;
+            //behaviorManagerMaster.EventResetPanelUIMenu -= ResetUIMenusIfRequired;
         }
 
         void Start()
         {
-            var _info = new UIPanelMenuInfo(this.gameObject, this);
-            behaviorManagerMaster.CallEventResetPanelUIMenu(_info);
+            //var _info = new UIPanelMenuInfo(this.gameObject, this);
+            //behaviorManagerMaster.CallEventResetPanelUIMenu(_info);
         }
 
         // Update is called once per frame
@@ -91,51 +91,51 @@ namespace IGBPI {
             
         }
 
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            if (behaviorManagerMaster && behaviorUIManager && !IsUISelection && AllMenusAreValid) {
-                var _info = new UIPanelMenuInfo(this.gameObject, this);                behaviorManagerMaster.CallEventUIPanelSelectionChanged(_info);
-            }
-        }
+        //public void OnPointerClick(PointerEventData eventData)
+        //{
+        //    if (behaviorManagerMaster && behaviorUIManager && !IsUISelection && AllMenusAreValid) {
+        //        var _info = new UIPanelMenuInfo(this.gameObject, this);                behaviorManagerMaster.CallEventUIPanelSelectionChanged(_info);
+        //    }
+        //}
 
-        void OnMenuSelectionChange(Dropdown _menu)
-        {
-            var _info = new UIPanelMenuInfo(this.gameObject, this);
-            behaviorManagerMaster.CallEventDropdownValueChanged(_info, _menu, _menu.value);
-        }
+        //void OnMenuSelectionChange(Dropdown _menu)
+        //{
+        //    var _info = new UIPanelMenuInfo(this.gameObject, this);
+        //    behaviorManagerMaster.CallEventDropdownValueChanged(_info, _menu, _menu.value);
+        //}
 
-        void ResetUIMenusIfRequired(UIPanelMenuInfo _info)
-        {
-            if (_info.myPanel == this)
-                ResetUIMenus();
-        }
+        //void ResetUIMenusIfRequired(UIPanelMenuInfo _info)
+        //{
+        //    if (_info.myPanel == this)
+        //        ResetUIMenus();
+        //}
 
-        void ResetUIMenus()
-        {
-            if (AllMenusAreValid)
-            {
-                foreach (var _menu in Dropdown_Menus)
-                {
-                    //_menu.ClearOptions();
-                    _menu.onValueChanged.RemoveAllListeners();
-                    _menu.onValueChanged.AddListener(delegate { OnMenuSelectionChange(_menu); });
+        //void ResetUIMenus()
+        //{
+        //    if (AllMenusAreValid)
+        //    {
+        //        foreach (var _menu in Dropdown_Menus)
+        //        {
+        //            //_menu.ClearOptions();
+        //            _menu.onValueChanged.RemoveAllListeners();
+        //            _menu.onValueChanged.AddListener(delegate { OnMenuSelectionChange(_menu); });
                     
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
         
-        void ChangeUIPanelVisuals(UIPanelMenuInfo _info)
-        {
-            if (_info.myPanel == this)
-            {
-                if (GetComponent<Image>())
-                    GetComponent<Image>().color = Color.blue;
-            }else if(behaviorUIManager.PreviousPanelSelection == this)
-            {
-                if (GetComponent<Image>())
-                    GetComponent<Image>().color = Color.white;
-            }
-        }
+        //void ChangeUIPanelVisuals(UIPanelMenuInfo _info)
+        //{
+        //    if (_info.myPanel == this)
+        //    {
+        //        if (GetComponent<Image>())
+        //            GetComponent<Image>().color = Color.blue;
+        //    }else if(behaviorUIManager.PreviousPanelSelection == this)
+        //    {
+        //        if (GetComponent<Image>())
+        //            GetComponent<Image>().color = Color.white;
+        //    }
+        //}
 
         void SetupInitialReferences()
         {
@@ -145,22 +145,22 @@ namespace IGBPI {
             if (!behaviorManagerMaster || !behaviorUIManager || !behaviorMenuManager)
                 Debug.LogError("No manager or master could be found!");
 
-            UI_Dropdown_Menus = new List<Dropdown>();
-            if (AllMenusAreValid)
-            {
-                UI_Dropdown_Menus.Add(comparisontype);
-                //UI_Dropdown_Menus.Add(compare_class_01);
-                //UI_Dropdown_Menus.Add(compare_class_02);
-                //UI_Dropdown_Menus.Add(class_01_attribute);
-                //UI_Dropdown_Menus.Add(class_02_attribute);
-                //UI_Dropdown_Menus.Add(conditionaltype);
-                //UI_Dropdown_Menus.Add(classtocarryoutevent);
-                UI_Dropdown_Menus.Add(eventfromclasstoexecute);
-            }
-            else
-            {
-                Debug.LogError("Please drag dropdown instance into dropdown slots!");
-            }
+            //UI_Dropdown_Menus = new List<Dropdown>();
+            //if (AllMenusAreValid)
+            //{
+            //    UI_Dropdown_Menus.Add(comparisontype);
+            //    //UI_Dropdown_Menus.Add(compare_class_01);
+            //    //UI_Dropdown_Menus.Add(compare_class_02);
+            //    //UI_Dropdown_Menus.Add(class_01_attribute);
+            //    //UI_Dropdown_Menus.Add(class_02_attribute);
+            //    //UI_Dropdown_Menus.Add(conditionaltype);
+            //    //UI_Dropdown_Menus.Add(classtocarryoutevent);
+            //    UI_Dropdown_Menus.Add(eventfromclasstoexecute);
+            //}
+            //else
+            //{
+            //    Debug.LogError("Please drag dropdown instance into dropdown slots!");
+            //}
 
         }
 

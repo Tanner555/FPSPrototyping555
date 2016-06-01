@@ -10,28 +10,34 @@ using System;
 namespace IGBPI
 {
     //Previously named BehaviorUIManager
-    public class IGBPI_UIHandler : MonoBehaviour 
+    public class IGBPI_UIHandler : MonoBehaviour
     {
         public GameObject behaviorUI;
         private GameManager_Master gameManagerMaster;
         private IGBPI_Manager_Master behaviorManager;
-        public GameObject UI_Panel_Prefab;
-        public Transform contentTransform;
-        public List<UIPanelMenuInfo> UI_Panel_Members { get { return uipanelmembers; } }
-        private List<UIPanelMenuInfo> uipanelmembers;
-        public IGBPI_UI_Panel UIPanelSelection
-        {
-            get { return uipanelselection; }
-            set { uipanelselection = value; }
-        }
+        //public GameObject UI_Panel_Prefab;
+        //public Transform contentTransform;
+        //public List<UIPanelMenuInfo> UI_Panel_Members { get { return uipanelmembers; } }
+        //private List<UIPanelMenuInfo> uipanelmembers;
+        //public IGBPI_UI_Panel UIPanelSelection
+        //{
+        //    get { return uipanelselection; }
+        //    set { uipanelselection = value; }
+        //}
 
-        public IGBPI_UI_Panel PreviousPanelSelection
-        {
-            get { return previouspanelselection; }
-        }
+        //public IGBPI_UI_Panel PreviousPanelSelection
+        //{
+        //    get { return previouspanelselection; }
+        //}
 
-        private IGBPI_UI_Panel uipanelselection = null;
-        private IGBPI_UI_Panel previouspanelselection = null;
+        //private IGBPI_UI_Panel uipanelselection = null;
+        //private IGBPI_UI_Panel previouspanelselection = null;
+        //testing ongui
+        public bool runBehaviorUI
+        {
+            get;
+            protected set;
+        }
         //Testing reflection
         //List<MethodInfo> _findIntMethodValues;
         //List<FieldInfo> _findIntFieldValues;
@@ -39,11 +45,12 @@ namespace IGBPI
         void Start()
         {
             SetInitialReferences();
-            behaviorManager.EventAddDropdownInstance += PrepDropInstanceForAdding;
-            behaviorManager.EventRemoveDropdownInstance += PrepDropInstanceForRemoving;
+            runBehaviorUI = false;
+            //behaviorManager.EventAddDropdownInstance += PrepDropInstanceForAdding;
+            //behaviorManager.EventRemoveDropdownInstance += PrepDropInstanceForRemoving;
             behaviorManager.EventToggleBehaviorUI += ToggleBehaviorUI;
-            behaviorManager.EventUIPanelSelectionChanged += SelectUIPanel;
-            uipanelmembers = new List<UIPanelMenuInfo>();
+            //behaviorManager.EventUIPanelSelectionChanged += SelectUIPanel;
+            //uipanelmembers = new List<UIPanelMenuInfo>();
             #region Testing Reflection
             //reflection
             //_findIntMethodValues = new List<MethodInfo>();
@@ -96,93 +103,10 @@ namespace IGBPI
 
         void OnDisable()
         {
-            behaviorManager.EventAddDropdownInstance -= PrepDropInstanceForAdding;
-            behaviorManager.EventRemoveDropdownInstance -= PrepDropInstanceForRemoving;
+            //behaviorManager.EventAddDropdownInstance -= PrepDropInstanceForAdding;
+            //behaviorManager.EventRemoveDropdownInstance -= PrepDropInstanceForRemoving;
             behaviorManager.EventToggleBehaviorUI -= ToggleBehaviorUI;
-            behaviorManager.EventUIPanelSelectionChanged -= SelectUIPanel;
-        }
-
-        #region ButtonCalls
-        public void CallAddDropdown()
-        {
-            if(behaviorManager != null)
-            {
-                UIPanelMenuInfo _ddata = !UIPanelSelection ? _ddata = new UIPanelMenuInfo(null, null) : new UIPanelMenuInfo(UIPanelSelection.gameObject, UIPanelSelection);
-                behaviorManager.CallEventAddDropdownInstance(_ddata);
-            }
-        }
-
-        public void CallRemoveDropdown()
-        {
-            if (behaviorManager != null && UIPanelSelection != null)
-            {
-                var _ddata = new UIPanelMenuInfo(UIPanelSelection.gameObject,UIPanelSelection);
-                behaviorManager.CallEventRemoveDropdownInstance(_ddata);
-            }
-        }
-
-        public void CallToggleBehavior()
-        {
-            if(behaviorManager != null)
-            {
-                behaviorManager.CallEventToggleBehaviorUI();
-            }
-        }
-        #endregion
-
-        //Behavior Events
-        void PrepDropInstanceForAdding(UIPanelMenuInfo _info)
-        {
-            AddDropdownInstance(_info);
-        }
-
-        void PrepDropInstanceForRemoving(UIPanelMenuInfo _info)
-        {
-            if(_info.myGameObject != null)
-            DeregisterDropdownMenu(_info);
-        }
-
-        void AddDropdownInstance(UIPanelMenuInfo _info)
-        {
-            if (!contentTransform || !UI_Panel_Prefab)
-                return;
-        
-             var _optionData = new List<Dropdown.OptionData>();
-            var _dropdownInstance = Instantiate(UI_Panel_Prefab);
-            _dropdownInstance.transform.SetParent(contentTransform, false);
-            var _rect = _dropdownInstance.GetComponent<RectTransform>();
-            _rect.localPosition = new Vector3(546.95f, -60f, 0f);
-            _rect.pivot = new Vector2(0.5f,0.5f);
-
-            var _mydropdownpanel = _dropdownInstance.GetComponent<IGBPI_UI_Panel>();
-
-            if (_mydropdownpanel != null && _mydropdownpanel.AllMenusAreValid)
-            {
-                RegisterDropdownMenu(new UIPanelMenuInfo(_dropdownInstance, _mydropdownpanel));
-            }
-            else
-            {
-                Debug.LogError("DeRegistering Panel because all requirements were not met!");
-                behaviorManager.CallEventRemoveDropdownInstance(_info);
-            }
-
-        }
-
-        void SelectUIPanel(UIPanelMenuInfo _info)
-        {
-            if(_info.myGameObject && _info.myPanel && _info.myPanel.AllMenusAreValid)
-            {
-                previouspanelselection = UIPanelSelection;
-                UIPanelSelection = _info.myPanel;
-            }
-        }
-
-        void ToggleBehaviorUI(bool _set)
-        {
-            if (behaviorUI != null)
-            {
-                behaviorUI.SetActive(_set);
-            }
+            //behaviorManager.EventUIPanelSelectionChanged -= SelectUIPanel;
         }
 
         void SetInitialReferences()
@@ -199,35 +123,125 @@ namespace IGBPI
             }
         }
 
-        void RegisterDropdownMenu(UIPanelMenuInfo _info)
+        #region ButtonCalls
+        #region OldButtonCalls
+        //public void CallAddDropdown()
+        //{
+        //    if(behaviorManager != null)
+        //    {
+        //        UIPanelMenuInfo _ddata = !UIPanelSelection ? _ddata = new UIPanelMenuInfo(null, null) : new UIPanelMenuInfo(UIPanelSelection.gameObject, UIPanelSelection);
+        //        behaviorManager.CallEventAddDropdownInstance(_ddata);
+        //    }
+        //}
+
+        //public void CallRemoveDropdown()
+        //{
+        //    if (behaviorManager != null && UIPanelSelection != null)
+        //    {
+        //        var _ddata = new UIPanelMenuInfo(UIPanelSelection.gameObject,UIPanelSelection);
+        //        behaviorManager.CallEventRemoveDropdownInstance(_ddata);
+        //    }
+        //}
+        #endregion
+        public void CallToggleBehavior()
         {
-            uipanelmembers.Add(_info);
+            if (behaviorManager != null)
+            {
+                behaviorManager.CallEventToggleBehaviorUI();
+            }
+        }
+        #endregion
+
+        void ToggleBehaviorUI(bool _set)
+        {
+            if (behaviorUI != null)
+            {
+                //behaviorUI.SetActive(_set);
+                runBehaviorUI = _set;
+            }
         }
 
-        void DeregisterDropdownMenu(UIPanelMenuInfo _info)
-        {
-            if (UIPanelSelection == _info.myPanel)
-                UIPanelSelection = null;
+        #region OldDropdownEvents
+        //Behavior Events
+        //    void PrepDropInstanceForAdding(UIPanelMenuInfo _info)
+        //    {
+        //        AddDropdownInstance(_info);
+        //    }
 
-            uipanelmembers.Remove(_info);
-            Destroy(_info.myGameObject);
-        }
+        //    void PrepDropInstanceForRemoving(UIPanelMenuInfo _info)
+        //    {
+        //        if(_info.myGameObject != null)
+        //        DeregisterDropdownMenu(_info);
+        //    }
+
+        //    void AddDropdownInstance(UIPanelMenuInfo _info)
+        //    {
+        //        if (!contentTransform || !UI_Panel_Prefab)
+        //            return;
+
+        //         var _optionData = new List<Dropdown.OptionData>();
+        //        var _dropdownInstance = Instantiate(UI_Panel_Prefab);
+        //        _dropdownInstance.transform.SetParent(contentTransform, false);
+        //        var _rect = _dropdownInstance.GetComponent<RectTransform>();
+        //        _rect.localPosition = new Vector3(546.95f, -60f, 0f);
+        //        _rect.pivot = new Vector2(0.5f,0.5f);
+
+        //        var _mydropdownpanel = _dropdownInstance.GetComponent<IGBPI_UI_Panel>();
+
+        //        if (_mydropdownpanel != null && _mydropdownpanel.AllMenusAreValid)
+        //        {
+        //            RegisterDropdownMenu(new UIPanelMenuInfo(_dropdownInstance, _mydropdownpanel));
+        //        }
+        //        else
+        //        {
+        //            Debug.LogError("DeRegistering Panel because all requirements were not met!");
+        //            behaviorManager.CallEventRemoveDropdownInstance(_info);
+        //        }
+
+        //    }
+
+        //    void SelectUIPanel(UIPanelMenuInfo _info)
+        //    {
+        //        if(_info.myGameObject && _info.myPanel && _info.myPanel.AllMenusAreValid)
+        //        {
+        //            previouspanelselection = UIPanelSelection;
+        //            UIPanelSelection = _info.myPanel;
+        //        }
+        //    }
+
+        //    void RegisterDropdownMenu(UIPanelMenuInfo _info)
+        //    {
+        //        uipanelmembers.Add(_info);
+        //    }
+
+        //    void DeregisterDropdownMenu(UIPanelMenuInfo _info)
+        //    {
+        //        if (UIPanelSelection == _info.myPanel)
+        //            UIPanelSelection = null;
+
+        //        uipanelmembers.Remove(_info);
+        //        Destroy(_info.myGameObject);
+        //    }
 
 
-    }
+        //}
 
-    [System.Serializable]
-    public struct UIPanelMenuInfo
-    {
-        private GameObject _myGameObject;
-        private IGBPI_UI_Panel _myUIPanel;
-        public GameObject myGameObject { get { return _myGameObject; } }
-        public IGBPI_UI_Panel myPanel { get { return _myUIPanel; } }
-        
-        public UIPanelMenuInfo(GameObject _gameobject, IGBPI_UI_Panel _dropdownpanel)
-        {
-            _myGameObject = _gameobject;
-            _myUIPanel = _dropdownpanel;
-        }
+        #endregion
+
+        //[System.Serializable]
+        //public struct UIPanelMenuInfo
+        //{
+        //    private GameObject _myGameObject;
+        //    private IGBPI_UI_Panel _myUIPanel;
+        //    public GameObject myGameObject { get { return _myGameObject; } }
+        //    public IGBPI_UI_Panel myPanel { get { return _myUIPanel; } }
+
+        //    public UIPanelMenuInfo(GameObject _gameobject, IGBPI_UI_Panel _dropdownpanel)
+        //    {
+        //        _myGameObject = _gameobject;
+        //        _myUIPanel = _dropdownpanel;
+        //    }
+        //}
+
     }
 }

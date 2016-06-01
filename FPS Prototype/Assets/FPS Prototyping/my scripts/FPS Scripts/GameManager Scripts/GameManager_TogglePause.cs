@@ -43,6 +43,7 @@ public class GameManager_TogglePause : MonoBehaviour {
             }
         }
 
+        //TODO: Fix GUI Pause Issue
         void TogglePause()
         {
             if (isPaused)
@@ -56,6 +57,6 @@ public class GameManager_TogglePause : MonoBehaviour {
                 isPaused = true;
             }
         }
-        
-  }
+
+    }
 }

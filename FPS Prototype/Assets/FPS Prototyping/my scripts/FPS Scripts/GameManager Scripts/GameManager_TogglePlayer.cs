@@ -59,17 +59,18 @@ namespace S3
                 Debug.LogError("No partymanager");
             }
         }
-
+        //TODO: Fix GUI issues when paused
         void TogglePlayerController()
         {
-            if(partymanager != null)
+            if (partymanager != null)
             {
                 if (partymanager.AllyInCommand != null)
                 {
                     var fpsCon = partymanager.AllyInCommand.transform.GetComponent<FirstPersonController>();
                     fpsCon.enabled = !fpsCon.enabled;
                 }
-            }else if (playerController != null)
+            }
+            else if (playerController != null)
             {
                 playerController.enabled = !playerController.enabled;
             }
