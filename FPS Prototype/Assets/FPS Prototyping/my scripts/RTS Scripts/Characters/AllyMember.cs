@@ -265,13 +265,13 @@ namespace RTSPrototype
         //Use this for initialization
         protected virtual void Start()
         {
-           
+            
         }
 
         // Update is called once per frame
         protected virtual void Update()
         {
-
+            
         }
 
         public virtual int GetDamageMultiplier(ApplyDamageValues _damagevalues)

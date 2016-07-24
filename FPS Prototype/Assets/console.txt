@@ -1,4 +1,4 @@
-[5:46 AM][Warning] No partyMembers in Scene!
+[5:28 AM][Warning] No partyMembers in Scene!
 UnityEngine.Debug:LogWarning(Object)
 RTSPrototype.PartyManager:FindPartyMembers(Boolean, AllyMember) (at Assets/FPS Prototyping/my scripts/RTS Scripts/Managers/PartyManager.cs:108)
 RTSPrototype.PartyManager:Start() (at Assets/FPS Prototyping/my scripts/RTS Scripts/Managers/PartyManager.cs:71)

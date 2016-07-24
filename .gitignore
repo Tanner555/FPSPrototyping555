@@ -3,13 +3,18 @@
 /[Oo]bj/
 /[Bb]uild/
 
+# AutoBuild Files
+*.json
+
 # Unity Files
 FPS Prototype/Assets/Standard Assets
 FPS Prototype/Assets/ModelAssets
 FPS Prototype/Library
 FPS Prototype/Temp
 FPS Prototype/Assets/Editor/CrossPlatformInput
+FPS Prototype/Assets/UFPS
 FPS Prototype/Assets/NodeCanvas
+FPS Prototype/Assets/NodeCanvas Resources
 FPS Prototype/Assets/Resources
 FPS Prototype/Assets/Attribute Console
 FPS Prototype/Assets/FPS Prototyping/my scenes
